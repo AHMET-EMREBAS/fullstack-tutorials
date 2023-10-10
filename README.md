@@ -43,7 +43,7 @@ We want to generate apps under apps folder and libraries under libs folder
   - libs
     - core
     - common
-    - materials
+    - material
 
 - 1.6 Then run the applications
 
