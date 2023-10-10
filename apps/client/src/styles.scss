@@ -36,6 +36,24 @@ $client-theme: mat.define-light-theme(
 
 /* You can add global styles to this file, and also import other style files */
 
+* {
+  cursor: url('/assets/svgs/cursor.svg'), auto !important;
+}
+
+*:active {
+  cursor: url('/assets/svgs/cursor-active.svg'), auto !important;
+}
+
+a,
+a *,
+button,
+button * {
+  cursor: url('/assets/svgs/cursor-active.svg'), auto !important;
+}
+
+// *:hover {
+//   cursor: url('/assets/svgs/cursor-hover.svg');
+// }
 html,
 body {
   height: 100%;
