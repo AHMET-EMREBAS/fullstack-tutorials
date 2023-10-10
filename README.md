@@ -18,3 +18,9 @@
    - 1.6 Open libs/core and study README.md and project.json file
    - 1.6 Open libs/utils and study README.md and project.json file
    - 1.6 Open libs/material and study README.md and project.json file
+
+2. This is the minimal structure of the development environement.
+
+   - 2.1 Study frontend and backend application files.
+   - 2.2 Makes changes and observe changes.
+   - 2.3 It is not that complex, do not focus on details.
