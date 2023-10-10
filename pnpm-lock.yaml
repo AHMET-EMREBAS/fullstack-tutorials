@@ -14,6 +14,9 @@ devDependencies:
   nx:
     specifier: 16.10.0
     version: 16.10.0
+  ts-node:
+    specifier: ^10.9.1
+    version: 10.9.1(@types/node@20.8.4)(typescript@5.2.2)
 
 packages:
 
