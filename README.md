@@ -2,18 +2,18 @@
 
 1. Install Packages
 
-- 1.1 Type `./install.sh` in your command line and press enter.
-- 1.2 Then verify installed packages from package.json and install.sh
+   - 1.1 Type `./install.sh` in your command line and press enter.
+   - 1.2 Then verify installed packages from package.json and install.sh
 
 2. After Installation | Frontend
 
-- 2.1 Type `npx g @nx/angular:app app-name` in your commandline, and press enter
-- 2.2 Have a look at the generated code
+   - 2.1 Type `npx g @nx/angular:app app-name` in your commandline, and press enter
+   - 2.2 Have a look at the generated code
 
 3. After Installation | Backend
 
-- 3.1 Type `npx g @nx/nest:app app-name` in your commandline, and press enter
-- 3.2 Have a look at the generated code
+   - 3.1 Type `npx g @nx/nest:app app-name` in your commandline, and press enter
+   - 3.2 Have a look at the generated code
 
 4. After generation | Run
 
