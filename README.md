@@ -1,8 +1,8 @@
 # Install required packages
 
 1. Install Packages
-   1.1 Run the `install.sh` file and install the packages
-   1.2 Then verify installed packages from package.json
+   1.1 Type `./install.sh` in your command line and press enter.
+   1.2 Then verify installed packages from package.json and install.sh
 
 2. After Installation | Frontend
    2.1 Type `npx g @nx/angular:app app-name` in your commandline, and press enter
