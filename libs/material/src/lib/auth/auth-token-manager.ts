@@ -1,8 +1,10 @@
 import { AuthTokenObject } from '@techbir/common';
 
+const EMPTY_TOKEN = '';
+
 export class AuthTokenManager {
   static setToken(tokenObj: AuthTokenObject) {
-    localStorage.setItem(AuthTokenObject.NAME, tokenObj.toString());
+    localStorage.setItem(AuthTokenObject.NAME, tokenObj.authToken);
   }
 
   static getToken() {
@@ -14,6 +16,6 @@ export class AuthTokenManager {
   }
 
   static remove() {
-    localStorage.setItem(AuthTokenObject.NAME, '');
+    localStorage.setItem(AuthTokenObject.NAME, EMPTY_TOKEN);
   }
 }

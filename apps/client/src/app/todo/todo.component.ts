@@ -1,55 +1,25 @@
-import { Component, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AngularMaterialModule } from '../app-material.module';
 import { TodoService } from './todo.service';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { TodoDto } from '@techbir/common';
 import { firstValueFrom, tap } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { DIALOG_DATA } from '@angular/cdk/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { plainToInstance } from 'class-transformer';
 import { validateSync } from 'class-validator';
 import { AuthService } from './auth.service';
-
-@Component({
-  template: `
-    <div
-      style="padding: 3em; display: flex; flex-direction: column; justify-content: center; align-items: center;"
-    >
-      <p>Are you sure to delete the item with {{ id }}?</p>
-      <button mat-raised-button color="warn" (click)="confirm()">
-        Confirm
-      </button>
-    </div>
-  `,
-
-  imports: [CommonModule, AngularMaterialModule],
-  standalone: true,
-})
-export class ConfirmDeleteComponent {
-  id = '';
-  constructor(
-    private readonly dilog: MatDialogRef<any>,
-    @Inject(DIALOG_DATA) private readonly data: any
-  ) {
-    this.id = data.id;
-  }
-
-  confirm() {
-    this.dilog.close({ confirm: true });
-  }
-}
+import {
+  ConfirmDialogComponent,
+  ConfirmDialogData,
+  ConfirmDialogResult,
+  MaterialModule,
+} from '@techbir/material';
 
 @Component({
   selector: 'techbir-todo',
   standalone: true,
-  imports: [CommonModule, AngularMaterialModule, ConfirmDeleteComponent],
+  imports: [CommonModule, MaterialModule],
   templateUrl: './todo.component.html',
   styleUrls: ['./todo.component.scss'],
 })
@@ -111,14 +81,17 @@ export class TodoComponent {
   }
 
   async deleteTodo(id: number) {
-    const dialogWindow = this.dialog.open(ConfirmDeleteComponent, {
-      data: { id },
+    const dialogWindow = this.dialog.open(ConfirmDialogComponent, {
+      data: new ConfirmDialogData({
+        message: `Are you sure to delete the item by id ${id}`,
+      }),
     });
 
-    const result = await firstValueFrom(dialogWindow.afterClosed());
+    const result = await firstValueFrom<ConfirmDialogResult>(
+      dialogWindow.afterClosed()
+    );
 
-    if (result.confirm) {
-      this.todoService.removeOneFromCache(id);
+    if (result) {
       this.todoService.delete(id);
       this.snackMessage(`Deleted item by id ${id}`);
     }
@@ -135,7 +108,6 @@ export class TodoComponent {
   async login() {
     const { username, password } = this.loginForm.value;
     if (username && password) {
-      console.log('Login ...........');
       await this.authService.login(username, password);
     }
   }

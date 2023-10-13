@@ -1,13 +1,16 @@
 import { Component } from '@angular/core';
+import { MaterialModule } from '../../material';
 import { FormBuilder } from '@angular/forms';
-import { AuthService } from './auth.service';
+import { AuthService } from '../auth.service';
 
 @Component({
-  selector: 'techbir-auth',
-  templateUrl: './auth.component.html',
-  styleUrls: ['./auth.component.scss'],
+  selector: 'techbir-login',
+  standalone: true,
+  imports: [MaterialModule],
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss'],
 })
-export class AuthComponent {
+export class LoginComponent {
   loginForm = this.formBuilder.group({
     username: [],
     password: [],
@@ -21,7 +24,6 @@ export class AuthComponent {
   async login() {
     const { username, password } = this.loginForm.value;
     if (username && password) {
-      console.log('Login ...........');
       await this.authService.login(username, password);
     }
   }

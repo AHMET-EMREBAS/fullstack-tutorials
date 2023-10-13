@@ -1,5 +1,6 @@
 import {
   Controller,
+  Get,
   NotFoundException,
   Post,
   Query,
@@ -53,5 +54,10 @@ export class AuthController implements BasicAuthController {
     } else {
       throw new NotFoundException('User not found!');
     }
+  }
+
+  @Get('has-session')
+  hasSession() {
+    return '';
   }
 }

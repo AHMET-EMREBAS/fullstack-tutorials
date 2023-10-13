@@ -18,7 +18,9 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 const MODULES = [
   MatToolbarModule,
@@ -41,10 +43,11 @@ const MODULES = [
   MatSnackBarModule,
   FormsModule,
   ReactiveFormsModule,
+  MatProgressSpinnerModule,
 ];
 
 @NgModule({
   imports: MODULES,
   exports: MODULES,
 })
-export class AngularMaterialModule {}
+export class MaterialModule {}

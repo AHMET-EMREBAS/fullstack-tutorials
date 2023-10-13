@@ -1,13 +1,9 @@
 export class AuthTokenObject {
   static NAME = 'authToken';
-
   authToken = '';
+
   constructor(obj?: Partial<AuthTokenObject>) {
     Object.assign(this, obj);
-  }
-
-  toString() {
-    return this.authToken;
   }
 }
 
