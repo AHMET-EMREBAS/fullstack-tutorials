@@ -15,6 +15,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DIALOG_DATA } from '@angular/cdk/dialog';
 import { plainToInstance } from 'class-transformer';
 import { validateSync } from 'class-validator';
+import { AuthService } from './auth.service';
 
 @Component({
   template: `
@@ -48,7 +49,6 @@ export class ConfirmDeleteComponent {
 @Component({
   selector: 'techbir-todo',
   standalone: true,
-
   imports: [CommonModule, AngularMaterialModule, ConfirmDeleteComponent],
   templateUrl: './todo.component.html',
   styleUrls: ['./todo.component.scss'],
@@ -57,6 +57,11 @@ export class TodoComponent {
   formGroup = this.formBuilder.group({
     title: [''],
     description: [''],
+  });
+
+  loginForm = this.formBuilder.group({
+    username: [''],
+    password: [''],
   });
 
   todos$ = this.todoService.filteredEntities$;
@@ -70,6 +75,7 @@ export class TodoComponent {
 
   constructor(
     private readonly todoService: TodoService,
+    private readonly authService: AuthService,
     private readonly snackBar: MatSnackBar,
     private readonly dialog: MatDialog,
     private readonly formBuilder: FormBuilder
@@ -124,5 +130,17 @@ export class TodoComponent {
       verticalPosition: 'top',
       horizontalPosition: 'center',
     });
+  }
+
+  async login() {
+    const { username, password } = this.loginForm.value;
+    if (username && password) {
+      console.log('Login ...........');
+      await this.authService.login(username, password);
+    }
+  }
+
+  async logout() {
+    this.authService.logout();
   }
 }

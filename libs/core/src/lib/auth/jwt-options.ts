@@ -6,9 +6,10 @@ export const JWT_OPTIONS: JwtModuleOptions = {
   signOptions: {
     /**
      *  60 -> one minute
+     *
      * "60000" -> one minute
      * "3d" -> 3 days
      */
-    expiresIn: 60,
+    expiresIn: 60 * 60 * 24 * 30,
   },
 };
