@@ -61,7 +61,7 @@ export class TodoController implements IBasicController<Todo> {
   @ApiCreatedResponse({
     description: 'When successfully created the Todo item',
   })
-  async save(@Body() item: CreateTodoDto): Promise<Todo> | never {
+  async save(@Body(ValidationPipe) item: CreateTodoDto): Promise<Todo> | never {
     try {
       await this.repo.findOneByOrFail({ title: item.title });
     } catch (err) {

@@ -1,5 +1,5 @@
 import { INestApplication, Logger } from '@nestjs/common';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { ApiSecurity, DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import {
   ContactObject,
   InfoObject,
@@ -25,6 +25,8 @@ export function useSwaggerPlugin(
       url || 'Unkown URL',
       email || 'Unkown Email'
     )
+    .addBearerAuth({ type: 'http' }, 'authToken')
+    .addSecurityRequirements('authToken')
     .addTag('TODO')
     .build();
 

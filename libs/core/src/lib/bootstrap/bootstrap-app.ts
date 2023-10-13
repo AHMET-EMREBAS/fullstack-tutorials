@@ -6,7 +6,7 @@
 import { INestApplication, Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 
-export type ServerPlugin = (app: INestApplication) => void
+export type ServerPlugin = (app: INestApplication) => void;
 
 export type BootstrapOptions = {
   /**
@@ -29,7 +29,7 @@ export async function bootstrap({
 }: BootstrapOptions) {
   const app = await NestFactory.create(appModule);
 
-  app.enableCors({ origin: '*' });
+  app.enableCors({ origin: '*', allowedHeaders: '*' });
 
   const globalPrefix = 'api';
 
