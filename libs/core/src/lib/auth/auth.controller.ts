@@ -1,5 +1,4 @@
 import {
-  Body,
   Controller,
   NotFoundException,
   Post,
@@ -9,12 +8,11 @@ import {
 import {
   ApiNotFoundResponse,
   ApiOkResponse,
-  ApiSecurity,
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { InjectRepository } from '@nestjs/typeorm';
-import { AuthToken, BasicAuthController } from '@techbir/common';
+import { AuthTokenObject, BasicAuthController } from '@techbir/common';
 import { User } from '@techbir/database';
 import { Repository } from 'typeorm';
 import { compare } from 'bcrypt';
@@ -39,7 +37,7 @@ export class AuthController implements BasicAuthController {
   async login(
     @Query('username') username: string,
     @Query('password') password: string
-  ): Promise<AuthToken> {
+  ): Promise<AuthTokenObject> {
     const foundUser = await this.userRepo.findOneByOrFail({ username });
 
     if (foundUser) {
@@ -48,7 +46,7 @@ export class AuthController implements BasicAuthController {
       if (isPasswordMatch) {
         const authToken = this.authService.sign({ sub: foundUser.id });
 
-        return { authToken };
+        return { ...new AuthTokenObject({ authToken }) };
       } else {
         throw new UnauthorizedException('Password is wrong!');
       }

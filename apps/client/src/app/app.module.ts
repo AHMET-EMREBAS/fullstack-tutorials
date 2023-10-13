@@ -12,7 +12,7 @@ import { EntityDataModule } from '@ngrx/data';
 import { entityConfig } from './entity-metadata';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { AuthTokenInterceptor } from './todo/todo.service';
+import { AuthTokenInterceptor } from '@techbir/material';
 
 @NgModule({
   declarations: [AppComponent, NavigationComponent],
