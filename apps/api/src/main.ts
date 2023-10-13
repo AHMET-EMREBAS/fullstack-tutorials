@@ -1,23 +1,29 @@
-/**
- * This is not a production server yet!
- * This is only a minimal backend to get started.
- */
-
-import { Logger } from '@nestjs/common';
-import { NestFactory } from '@nestjs/core';
-
+import { bootstrap, ServerPlugin, useSwaggerPlugin } from '@techbir/core';
 import { AppModule } from './app/app.module';
+import { INestApplication } from '@nestjs/common';
 
-async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  app.enableCors({ origin: '*' });
-  const globalPrefix = 'api';
-  app.setGlobalPrefix(globalPrefix);
-  const port = process.env.PORT || 3000;
-  await app.listen(port);
-  Logger.log(
-    `🚀 Application is running on: http://localhost:${port}/${globalPrefix}`
-  );
-}
+/**
+ * Configure swagger for the project
+ * @param app AppModule
+ */
+const swaggerPlugin: ServerPlugin = (app: INestApplication) => {
+  useSwaggerPlugin(app, {
+    name: 'Todo Application',
+    version: '0.0.1',
+    title: 'Todo Api',
+    description: 'Manage todo data',
+    contact: {
+      name: 'A. Emrebas',
+      email: 'job@aemrebas.com',
+      url: 'https://aemrebas.com',
+    },
 
-bootstrap();
+    email: 'info@aemrebas.com',
+  });
+};
+
+bootstrap({
+  appModule: AppModule,
+  port: 3000,
+  plugins: [swaggerPlugin],
+});

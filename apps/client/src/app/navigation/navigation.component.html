@@ -13,23 +13,13 @@
     <mat-nav-list>
       <a
         mat-list-item
-        [routerLink]="['hello']"
+        [routerLink]="['todo']"
         routerLinkActive="router-link-active"
       >
         <span matListItemIcon>
-          <mat-icon color="primary">front_hand</mat-icon>
+          <mat-icon color="primary">task</mat-icon>
         </span>
-        <span matListItemLine> Hello</span>
-      </a>
-      <a
-        mat-list-item
-        [routerLink]="['bye']"
-        routerLinkActive="router-link-active"
-      >
-        <span matListItemIcon>
-          <mat-icon color="accent">waving_hand</mat-icon>
-        </span>
-        <span matListItemLine>Bye</span>
+        <span matListItemLine> Todo</span>
       </a>
     </mat-nav-list>
   </mat-sidenav>

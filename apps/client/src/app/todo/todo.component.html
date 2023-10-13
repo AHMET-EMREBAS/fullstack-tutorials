@@ -1,0 +1,92 @@
+<mat-toolbar color="primary">
+  <img src="/assets/icons/icon-72x72.png" alt="App Logo" />
+  Todo Application
+</mat-toolbar>
+
+<div
+  style="
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2em;
+    align-items: stretch;
+    padding: 20px;
+  "
+>
+  <div>
+    <p>
+      There are <strong> {{ count$ | async }} </strong> items in your list.
+    </p>
+    <div
+      style="
+        border: 1px dashed black;
+        padding: 20px;
+        height: 276px;
+        overflow-y: auto;
+        min-width: 300px;
+      "
+    >
+      <div
+        *ngFor="let todo of todos$ | async"
+        style="
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-start;
+          gap: 1em;
+          align-items: center;
+        "
+      >
+        <mat-icon color="primary">task</mat-icon>
+        <span>{{ todo.title }}</span>
+        <div style="flex-grow: 1"></div>
+        <button mat-icon-button color="warn" (click)="deleteTodo(todo.id)">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <p>Create New Task</p>
+    <form
+      [formGroup]="formGroup"
+      style="
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+        max-width: 600px;
+        font-size: 1em;
+        border: 1px dashed black;
+        padding: 20px;
+      "
+    >
+      <mat-form-field appearance="fill">
+        <mat-label>Todo Title</mat-label>
+        <input
+          matInput
+          type="text"
+          placeholder="Title"
+          formControlName="title"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Todo Description</mat-label>
+        <textarea
+          matInput
+          type="text"
+          placeholder="Description"
+          formControlName="description"
+        ></textarea>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" (click)="saveTodo()">
+        <mat-icon matIconPrefix>add</mat-icon>
+        <span> New Todo </span>
+      </button>
+    </form>
+  </div>
+</div>
+
+<ng-container *ngIf="errors$ | async"></ng-container>

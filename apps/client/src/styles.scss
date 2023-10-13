@@ -36,20 +36,20 @@ $client-theme: mat.define-light-theme(
 
 /* You can add global styles to this file, and also import other style files */
 
-* {
-  cursor: url('/assets/svgs/cursor.svg'), auto !important;
-}
+// * {
+//   cursor: url('/assets/svgs/cursor.svg'), auto !important;
+// }
 
-*:active {
-  cursor: url('/assets/svgs/cursor-active.svg'), auto !important;
-}
+// *:active {
+//   cursor: url('/assets/svgs/cursor-active.svg'), auto !important;
+// }
 
-a,
-a *,
-button,
-button * {
-  cursor: url('/assets/svgs/cursor-active.svg'), auto !important;
-}
+// a,
+// a *,
+// button,
+// button * {
+//   cursor: url('/assets/svgs/cursor-active.svg'), auto !important;
+// }
 
 // *:hover {
 //   cursor: url('/assets/svgs/cursor-hover.svg');
@@ -60,16 +60,52 @@ body {
 }
 body {
   margin: 0;
+  font-size: 16px;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
+  color: rgb(75, 75, 75);
 }
-
+* {
+  box-sizing: border-box;
+}
 .mdc-list-item {
-  transition: border-left ease-in-out 400ms, box-shadow ease-in-out 400ms;
-  border-left: 0px solid transparent;
-  box-shadow: 1px 1px 3px transparent;
+  border: 2px dashed transparent;
+  transition: border-color ease-in-out 400ms;
 }
 
 .mdc-list-item.router-link-active {
-  border-left: 10px solid royalblue;
-  box-shadow: 1px 1px 3px royalblue;
+  border-color: black;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: orangered;
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: crimson;
+}
+/* Style the scrollbar thumb when it's in an active state (e.g., when scrolling) */
+::-webkit-scrollbar-thumb:active {
+  background: orangered;
+}
+
+::-webkit-scrollbar-track {
+  background-color: royalblue;
+}
+
+::-webkit-scrollbar-track:active {
+  background: navy;
+}
+::-webkit-scrollbar-track:hover {
+  background: teal;
+}
+
+/* Style the scrollbar corner (the intersection between the horizontal and vertical scrollbars) */
+::-webkit-scrollbar-corner {
+  background: navy;
 }
