@@ -11,7 +11,7 @@ import { createServer } from 'https';
 import express = require('express');
 import { readFileSync } from 'fs';
 import { join } from 'path';
-import * as helmet  from 'helmet'
+import * as helmet from 'helmet';
 export type ServerPlugin = (app: INestApplication) => void;
 
 export type BootstrapOptions = {
@@ -44,6 +44,10 @@ export async function bootstrap({
       'https://localhost:8080',
       'https://localhost:4200',
       'https://localhost:3000',
+      'http://localhost:8080',
+      'http://localhost:4200',
+      'http://localhost:3000',
+      'https://ahmet-emrebas.github.io',
     ],
   });
 

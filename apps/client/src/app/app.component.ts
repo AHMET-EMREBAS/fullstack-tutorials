@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Title } from '@angular/platform-browser';
-import { NavigationEnd, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import {
   AuthService,
   ConfirmDialogComponent,
   ConfirmDialogData,
   ConfirmDialogResult,
 } from '@techbir/material';
-import { firstValueFrom, map, tap } from 'rxjs';
+import { firstValueFrom, interval, map, switchMap, tap } from 'rxjs';
 
 @Component({
   selector: 'techbir-root',
@@ -16,23 +16,19 @@ import { firstValueFrom, map, tap } from 'rxjs';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  loading$ = this.router.events.pipe(
-    map((e: any) => {
-      if (e instanceof NavigationEnd) {
-        return true;
-      }
-      return false;
+  notHaveSession$ = interval(10000).pipe(
+    switchMap(() => {
+      return this.authService.hasSession$.pipe(
+        tap((hasSession) => {
+          if (hasSession) {
+            this.router.navigate(['todo']);
+          } else {
+            this.router.navigate(['auth', 'login']);
+          }
+        }),
+        map((e) => !e)
+      );
     })
-  );
-  notHaveSession$ = this.authService.hasSession$.pipe(
-    tap((hasSession) => {
-      if (hasSession) {
-        this.router.navigate(['todo']);
-      } else {
-        this.router.navigate(['auth', 'login']);
-      }
-    }),
-    map((e) => !e)
   );
 
   constructor(

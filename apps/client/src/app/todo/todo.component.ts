@@ -1,11 +1,19 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TodoService } from './todo.service';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TodoDto } from '@techbir/common';
-import { firstValueFrom, tap } from 'rxjs';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatDialog } from '@angular/material/dialog';
+import {
+  Subject,
+  delay,
+  firstValueFrom,
+  interval,
+  map,
+  switchMap,
+  tap,
+} from 'rxjs';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { plainToInstance } from 'class-transformer';
 
 import {
@@ -15,15 +23,34 @@ import {
   MaterialModule,
   parseNgrxErrors,
 } from '@techbir/material';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MergeStrategy } from '@ngrx/data';
 
 @Component({
   selector: 'techbir-todo',
   standalone: true,
-  imports: [CommonModule, MaterialModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
+    MatSnackBarModule,
+    MatProgressSpinnerModule,
+  ],
   templateUrl: './todo.component.html',
   styleUrls: ['./todo.component.scss'],
 })
-export class TodoComponent {
+export class TodoComponent implements AfterViewInit {
+  loading$ = this.todoService.loading$;
+
   formGroup = this.formBuilder.group({
     title: [''],
     description: [''],
@@ -34,7 +61,7 @@ export class TodoComponent {
     password: [''],
   });
 
-  todos$ = this.todoService.filteredEntities$;
+  todos$ = this.todoService.entities$;
 
   count$ = this.todoService.count$;
 
@@ -53,8 +80,17 @@ export class TodoComponent {
     private readonly snackBar: MatSnackBar,
     private readonly dialog: MatDialog,
     private readonly formBuilder: FormBuilder
-  ) {
-    this.todoService.getAll();
+  ) {}
+
+  ngAfterViewInit(): void {
+    interval(2000)
+      .pipe(
+        switchMap(() => {
+          this.todoService.getAll();
+          return this.todoService.load();
+        })
+      )
+      .subscribe();
   }
 
   saveTodo() {

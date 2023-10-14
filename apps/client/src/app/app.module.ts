@@ -3,33 +3,29 @@ import { NgModule, isDevMode } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { appRoutes } from './app.routes';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NavigationComponent } from './navigation/navigation.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { EntityDataModule } from '@ngrx/data';
-import { entityConfig } from './entity-metadata';
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
-import {
-  AuthTokenInterceptor,
-  BASE_API_URL,
-  BaseUrlInterceptor,
-} from '@techbir/material';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
+import { provideApiURL } from './providers/provide-api-url';
+import {
+  provideAuthInterceptor,
+  provideBaseApiURLInterceptor,
+} from './providers/provide-http-interceptors';
+import { AppStoreModule } from './store/app-store.module';
+import { MatProgressSpinner, MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserAnimationsModule,
-    HttpClientModule,
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
     MatDialogModule,
+    MatProgressSpinnerModule,
     RouterModule.forRoot(appRoutes, {
       useHash: true,
       initialNavigation: 'enabledBlocking',
@@ -40,25 +36,12 @@ import { MatDialogModule } from '@angular/material/dialog';
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000',
     }),
-    StoreModule.forRoot({}, {}),
-    EffectsModule.forRoot([]),
-    EntityDataModule.forRoot(entityConfig),
+    AppStoreModule,
   ],
   providers: [
-    {
-      provide: BASE_API_URL,
-      useValue: 'https://localhost:3000',
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthTokenInterceptor,
-      multi: true,
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: BaseUrlInterceptor,
-      multi: true,
-    },
+    provideApiURL(),
+    provideAuthInterceptor(),
+    provideBaseApiURLInterceptor(),
   ],
   bootstrap: [AppComponent],
 })

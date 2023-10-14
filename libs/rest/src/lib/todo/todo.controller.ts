@@ -23,7 +23,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { IBasicController } from '@techbir/common';
 import { CreateTodoDto, Todo, UpdateTodoDto } from '@techbir/database';
 import { Repository } from 'typeorm';
-
+import { slowDownResponse } from '@techbir/utils';
 /**
  * Let's talk about each Decorators
  *
@@ -64,7 +64,9 @@ export class TodoController implements IBasicController<Todo> {
     try {
       await this.repo.findOneByOrFail({ title: item.title });
     } catch (err) {
-      return this.repo.save(item);
+      const data = await this.repo.save(item);
+
+      return await slowDownResponse(data);
     }
     throw new UnprocessableEntityException(`title must be unique!`);
   }
@@ -72,8 +74,9 @@ export class TodoController implements IBasicController<Todo> {
   @Get('todos')
   @ApiOperation({ summary: 'Get all todo items from database.' })
   @ApiOkResponse({ description: 'When successfully returned the Todos' })
-  find(): Promise<Todo[]> {
-    return this.repo.find();
+  async find(): Promise<Todo[]> {
+    const data = await this.repo.find();
+    return slowDownResponse(data);
   }
 
   @Get('todo/:id')
