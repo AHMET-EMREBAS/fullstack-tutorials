@@ -7,8 +7,7 @@ import { firstValueFrom, tap } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { plainToInstance } from 'class-transformer';
-import { validateSync } from 'class-validator';
-import { AuthService } from './auth.service';
+
 import {
   ConfirmDialogComponent,
   ConfirmDialogData,

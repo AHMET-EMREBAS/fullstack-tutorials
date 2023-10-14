@@ -15,15 +15,21 @@ import {
   AuthTokenInterceptor,
   BASE_API_URL,
   BaseUrlInterceptor,
-  MaterialModule,
 } from '@techbir/material';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
-  declarations: [AppComponent, NavigationComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserAnimationsModule,
-    MaterialModule,
     HttpClientModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
+    MatDialogModule,
     RouterModule.forRoot(appRoutes, {
       useHash: true,
       initialNavigation: 'enabledBlocking',

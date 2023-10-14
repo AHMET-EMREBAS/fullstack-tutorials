@@ -11,7 +11,7 @@ import { createServer } from 'https';
 import express = require('express');
 import { readFileSync } from 'fs';
 import { join } from 'path';
-import * as helmet from 'helmet';
+import * as helmet  from 'helmet'
 export type ServerPlugin = (app: INestApplication) => void;
 
 export type BootstrapOptions = {
@@ -38,7 +38,14 @@ export async function bootstrap({
   const app = await NestFactory.create(appModule, new ExpressAdapter(server));
 
   app.use(helmet.default());
-  app.enableCors({ origin: '*' });
+
+  app.enableCors({
+    origin: [
+      'https://localhost:8080',
+      'https://localhost:4200',
+      'https://localhost:3000',
+    ],
+  });
 
   const globalPrefix = 'api';
 
