@@ -18,7 +18,6 @@ import {
   ApiTags,
   ApiUnauthorizedResponse,
   ApiUnprocessableEntityResponse,
-  PartialType,
 } from '@nestjs/swagger';
 import { InjectRepository } from '@nestjs/typeorm';
 import { IBasicController } from '@techbir/common';
@@ -67,9 +66,7 @@ export class TodoController implements IBasicController<Todo> {
     } catch (err) {
       return this.repo.save(item);
     }
-    throw new UnprocessableEntityException(
-      `Todo item with the same title already exist!`
-    );
+    throw new UnprocessableEntityException(`title must be unique!`);
   }
 
   @Get('todos')

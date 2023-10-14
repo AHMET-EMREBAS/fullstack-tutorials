@@ -14,6 +14,7 @@ import {
   ConfirmDialogData,
   ConfirmDialogResult,
   MaterialModule,
+  parseNgrxErrors,
 } from '@techbir/material';
 
 @Component({
@@ -37,15 +38,19 @@ export class TodoComponent {
   todos$ = this.todoService.filteredEntities$;
 
   count$ = this.todoService.count$;
+
   errors$ = this.todoService.errors$.pipe(
     tap((error) => {
-      this.snackMessage(error.payload.data.error.message);
+      const messages = parseNgrxErrors(error);
+      const property = messages.split(' ').shift();
+      this.snackMessage(messages);
+
+      if (property) this.setErrorMessage(property, messages);
     })
   );
 
   constructor(
     private readonly todoService: TodoService,
-    private readonly authService: AuthService,
     private readonly snackBar: MatSnackBar,
     private readonly dialog: MatDialog,
     private readonly formBuilder: FormBuilder
@@ -53,31 +58,13 @@ export class TodoComponent {
     this.todoService.getAll();
   }
 
-  protected createTodo() {
-    return plainToInstance(TodoDto, {
+  saveTodo() {
+    const newTodo = plainToInstance(TodoDto, {
       ...this.formGroup.value,
       status: 'todo',
     });
-  }
 
-  protected validateTodo(todo: TodoDto) {
-    const errors = validateSync(todo);
-
-    if (errors?.length > 0) {
-      const errorMessage = Object.values(errors[0].constraints || {})?.pop();
-      this.snackMessage(errorMessage);
-      return false;
-    }
-    return true;
-  }
-
-  saveTodo() {
-    const newTodo = this.createTodo();
-    const isValid = this.validateTodo(newTodo);
-
-    if (isValid) {
-      this.todoService.add(newTodo);
-    }
+    this.todoService.add(newTodo);
   }
 
   async deleteTodo(id: number) {
@@ -105,14 +92,19 @@ export class TodoComponent {
     });
   }
 
-  async login() {
-    const { username, password } = this.loginForm.value;
-    if (username && password) {
-      await this.authService.login(username, password);
+  private setErrorMessage(formControlName: string, message: string) {
+    const control = this.formGroup.get(formControlName);
+
+    if (control) {
+      control.setErrors({ error: message });
     }
   }
 
-  async logout() {
-    this.authService.logout();
+  getError(formControlName: string) {
+    const errors = this.formGroup.get(formControlName)?.errors;
+    if (errors) {
+      return errors['error'];
+    }
+    return undefined;
   }
 }
