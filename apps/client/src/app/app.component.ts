@@ -16,7 +16,7 @@ import { firstValueFrom, interval, map, switchMap, tap } from 'rxjs';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  notHaveSession$ = interval(10000).pipe(
+  notHaveSession$ = interval(400).pipe(
     switchMap(() => {
       return this.authService.hasSession$.pipe(
         tap((hasSession) => {

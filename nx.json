@@ -9,13 +9,20 @@
     "default": {
       "runner": "nx/tasks-runners/default",
       "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"]
+        "cacheableOperations": [
+          "build",
+          "lint",
+          "test",
+          "e2e",
+          "codegen",
+          "swagger"
+        ]
       }
     }
   },
   "targetDefaults": {
     "build": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["^build", "codegen", "^codegen"],
       "inputs": ["production", "^production"]
     },
     "test": {
@@ -81,5 +88,6 @@
       "unitTestRunner": "jest",
       "bundler": "tsc"
     }
-  }
+  },
+  "plugins": ["@nx-dotnet/core"]
 }

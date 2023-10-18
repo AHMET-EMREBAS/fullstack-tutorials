@@ -2,7 +2,9 @@
   "name": "@techbir/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "prepare": "nx g @nx-dotnet/core:restore"
+  },
   "private": true,
   "devDependencies": {
     "@angular-devkit/build-angular": "~16.2.0",
@@ -19,6 +21,8 @@
     "@nestjs/schematics": "^10.0.1",
     "@nestjs/testing": "^10.0.2",
     "@ngrx/eslint-plugin": "^16.3.0",
+    "@nrwl/js": "16.10.0",
+    "@nx-dotnet/core": "^1.23.0",
     "@nx/angular": "^16.10.0",
     "@nx/cypress": "16.10.0",
     "@nx/eslint-plugin": "16.10.0",

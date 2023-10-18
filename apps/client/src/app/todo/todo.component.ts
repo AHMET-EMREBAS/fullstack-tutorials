@@ -3,15 +3,7 @@ import { CommonModule } from '@angular/common';
 import { TodoService } from './todo.service';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TodoDto } from '@techbir/common';
-import {
-  Subject,
-  delay,
-  firstValueFrom,
-  interval,
-  map,
-  switchMap,
-  tap,
-} from 'rxjs';
+import { firstValueFrom, interval, switchMap, tap } from 'rxjs';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { plainToInstance } from 'class-transformer';
@@ -20,7 +12,6 @@ import {
   ConfirmDialogComponent,
   ConfirmDialogData,
   ConfirmDialogResult,
-  MaterialModule,
   parseNgrxErrors,
 } from '@techbir/material';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -28,7 +19,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MergeStrategy } from '@ngrx/data';
 
 @Component({
   selector: 'techbir-todo',
