@@ -18,9 +18,6 @@
       "@techbir/common": ["libs/common/src/index.ts"],
       "@techbir/core": ["libs/core/src/index.ts"],
       "@techbir/database": ["libs/database/src/index.ts"],
-      "@techbir/generated/server-types": [
-        "libs/generated/server-types/src/index.ts"
-      ],
       "@techbir/material": ["libs/material/src/index.ts"],
       "@techbir/rest": ["libs/rest/src/index.ts"],
       "@techbir/utils": ["libs/utils/src/index.ts"]
