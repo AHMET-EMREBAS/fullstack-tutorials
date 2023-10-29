@@ -16,20 +16,20 @@ import { firstValueFrom, interval, map, switchMap, tap } from 'rxjs';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  notHaveSession$ = interval(400).pipe(
-    switchMap(() => {
-      return this.authService.hasSession$.pipe(
-        tap((hasSession) => {
-          if (hasSession) {
-            this.router.navigate(['todo']);
-          } else {
-            this.router.navigate(['auth', 'login']);
-          }
-        }),
-        map((e) => !e)
-      );
-    })
-  );
+  // notHaveSession$ = interval(400).pipe(
+  //   switchMap(() => {
+  //     return this.authService.hasSession$.pipe(
+  //       tap((hasSession) => {
+  //         if (hasSession) {
+  //           this.router.navigate(['todo']);
+  //         } else {
+  //           this.router.navigate(['auth', 'login']);
+  //         }
+  //       }),
+  //       map((e) => !e)
+  //     );
+  //   })
+  // );
 
   constructor(
     public readonly title: Title,

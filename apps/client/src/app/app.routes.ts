@@ -1,14 +1,8 @@
 import { Route } from '@angular/router';
-import { TodoComponent } from './todo/todo.component';
-import { AuthGuard, authRoutes } from '@techbir/material';
+import { authRoutes } from '@techbir/material';
 
 export const appRoutes: Route[] = [
-  {
-    title: $localize`Todo Application`,
-    path: 'todo',
-    component: TodoComponent,
-    canActivate: [AuthGuard],
-  },
+  { path: '', redirectTo: 'auth', pathMatch: 'full' },
   {
     path: 'auth',
     loadChildren: () => authRoutes,

@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
 import { RouterModule } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'techbir-navigation',
@@ -20,13 +21,12 @@ import { RouterModule } from '@angular/router';
     MatButtonModule,
     MatIconModule,
     MatListModule,
-    RouterModule
+    RouterModule,
   ],
   styleUrls: ['./navigation.component.css'],
   standalone: true,
 })
 export class NavigationComponent {
-  @Input() title = '';
   private breakpointObserver = inject(BreakpointObserver);
 
   isHandset$: Observable<boolean> = this.breakpointObserver
@@ -35,4 +35,6 @@ export class NavigationComponent {
       map((result) => result.matches),
       shareReplay()
     );
+
+  constructor(public readonly title: Title) {}
 }

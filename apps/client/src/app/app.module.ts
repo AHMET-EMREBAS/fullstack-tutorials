@@ -5,9 +5,6 @@ import { AppComponent } from './app.component';
 import { appRoutes } from './app.routes';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { provideApiURL } from './providers/provide-api-url';
 import {
@@ -15,17 +12,14 @@ import {
   provideBaseApiURLInterceptor,
 } from './providers/provide-http-interceptors';
 import { AppStoreModule } from './store/app-store.module';
-import { MatProgressSpinner, MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { NavigationComponent } from './navigation/navigation.component';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserAnimationsModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatIconModule,
+    NavigationComponent,
     MatDialogModule,
-    MatProgressSpinnerModule,
     RouterModule.forRoot(appRoutes, {
       useHash: true,
       initialNavigation: 'enabledBlocking',

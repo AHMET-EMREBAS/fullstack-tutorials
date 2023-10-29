@@ -13,13 +13,13 @@
     <mat-nav-list>
       <a
         mat-list-item
-        [routerLink]="['todo']"
+        [routerLink]="['user-management']"
         routerLinkActive="router-link-active"
       >
         <span matListItemIcon>
-          <mat-icon color="primary">task</mat-icon>
+          <mat-icon color="primary">people</mat-icon>
         </span>
-        <span matListItemLine> Todo</span>
+        <span matListItemLine> User Management</span>
       </a>
     </mat-nav-list>
   </mat-sidenav>
@@ -34,8 +34,11 @@
       >
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>{{ title }}</span>
+      <span>{{ title.getTitle() }}</span>
     </mat-toolbar>
-    <ng-content></ng-content>
+
+    <div class="content">
+      <ng-content></ng-content>
+    </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
