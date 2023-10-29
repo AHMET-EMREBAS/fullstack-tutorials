@@ -1,12 +1,9 @@
-# Todo Authentication
+# User Management
 
-Todo application will teach us the basics of
-
-1. SSL Certificate
-2. Authentication
-3. JWT
-4. Angular Guards
-5. Angular HTTP Interceptor
-6. Seperation of project parts
+1- CRUD user
+2- Manage User authentication & authorization
+3- Implement Role/Permission guard for UI & Api
+4- Advance Auth (signup, signin, forgot-password, reset-password, login-with sso)
+5- Email Feature
 
 Please have a look at each file in the projects'client and api directory.
