@@ -1,5 +1,5 @@
 import { INestApplication, Logger } from '@nestjs/common';
-import { ApiSecurity, DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import {
   ContactObject,
   InfoObject,

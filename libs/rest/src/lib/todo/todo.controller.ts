@@ -24,26 +24,6 @@ import { IBasicController } from '@techbir/common';
 import { CreateTodoDto, Todo, UpdateTodoDto } from '@techbir/database';
 import { Repository } from 'typeorm';
 import { slowDownResponse } from '@techbir/utils';
-/**
- * Let's talk about each Decorators
- *
- * @ApiTag() is for organizing controllers in Swagger UI.
- *
- * @Controller() is NestJS decorator that defines a controller class.
- *
- * @ApiOperation() is for documenting the method so users understand what the end point is for?
- *
- * @Post() is for Post request
- * @Get() is for Get request
- * @Put() is for Put request
- * @Delete() is for Delete request
- * @Update() is for Update request
- *
- *
- * @Param('id') is for extracting the id parameters from the URI. ex. '/api/product/1', '1' is extracted.
- * @Body() is for extracting request body from the request.
- *
- */
 
 @ApiTags(TodoController.name)
 @Controller()
