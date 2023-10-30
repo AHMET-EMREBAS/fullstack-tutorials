@@ -1,4 +1,4 @@
-import { CombinePropertyDecorators } from './CombinePropertyDecorators';
+import { CombinePropertyDecorators } from '@techbir/common';
 import { Min, Max, IsNumber, ValidationOptions, IsInt } from 'class-validator';
 import { CommonProperty, CommonPropertyOptions } from './CommonProperty';
 

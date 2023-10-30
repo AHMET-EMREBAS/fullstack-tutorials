@@ -1,4 +1,3 @@
-import { CombinePropertyDecorators } from './CombinePropertyDecorators';
 import {
   MinLength,
   MaxLength,
@@ -10,6 +9,7 @@ import {
   IsUUID,
 } from 'class-validator';
 import { CommonProperty, CommonPropertyOptions } from './CommonProperty';
+import { CombinePropertyDecorators } from '@techbir/common';
 
 export class StringPropertyOptions extends CommonPropertyOptions {
   minLength?: number;

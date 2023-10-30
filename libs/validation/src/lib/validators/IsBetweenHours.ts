@@ -1,10 +1,10 @@
+import { Hour } from '@techbir/common';
 import {
   ValidationArguments,
   registerDecorator,
   ValidationOptions,
 } from 'class-validator';
 
-import { Hour } from '../types';
 
 export function __IsBetweenHours(date: Date, start: Hour, end: Hour) {
   const hour = date.getHours();

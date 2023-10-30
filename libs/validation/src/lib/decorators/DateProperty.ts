@@ -1,7 +1,6 @@
 import { IsDate, MaxDate, MinDate, ValidationOptions } from 'class-validator';
 import { CommonProperty, CommonPropertyOptions } from './CommonProperty';
-import { CombinePropertyDecorators } from './CombinePropertyDecorators';
-import { DayNumber, Hour } from '../types';
+import { CombinePropertyDecorators, DayNumber, Hour } from '@techbir/common';
 import { IsBetweenHours, IsInDays, IsInHours, IsToday } from '../validators';
 
 export class DatePropertyOptions extends CommonPropertyOptions {

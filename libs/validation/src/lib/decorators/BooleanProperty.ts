@@ -1,5 +1,5 @@
 import { IsBoolean, ValidationOptions } from 'class-validator';
-import { CombinePropertyDecorators } from './CombinePropertyDecorators';
+import { CombinePropertyDecorators } from '@techbir/common';
 import { CommonProperty, CommonPropertyOptions } from './CommonProperty';
 
 /**

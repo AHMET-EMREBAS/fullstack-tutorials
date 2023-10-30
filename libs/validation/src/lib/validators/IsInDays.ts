@@ -1,9 +1,9 @@
+import { DayNumber } from '@techbir/common';
 import {
   ValidationArguments,
   registerDecorator,
   ValidationOptions,
 } from 'class-validator';
-import { DayNumber } from '../types';
 
 export function __IsInDays(date: Date, hours: DayNumber[]) {
   return hours.includes(date.getDay() as DayNumber);

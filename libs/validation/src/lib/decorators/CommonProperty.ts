@@ -1,5 +1,5 @@
 import { IsNotEmpty, IsOptional, ValidationOptions } from 'class-validator';
-import { CombinePropertyDecorators } from './CombinePropertyDecorators';
+import { CombinePropertyDecorators } from '@techbir/common';
 
 export class CommonPropertyOptions {
   required?: boolean;

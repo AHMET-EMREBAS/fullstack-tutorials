@@ -1,5 +1,5 @@
 import { BooleanProperty } from './BooleanProperty';
-import { CombinePropertyDecorators } from './CombinePropertyDecorators';
+import { CombinePropertyDecorators } from '@techbir/common';
 import { CommonPropertyOptions } from './CommonProperty';
 import { DateProperty, DatePropertyOptions } from './DateProperty';
 import { NumberProperty, NumberPropertyOptions } from './NumberProperty';

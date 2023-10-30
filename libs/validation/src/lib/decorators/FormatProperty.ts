@@ -6,7 +6,7 @@ import {
   ValidationOptions,
 } from 'class-validator';
 import { CommonProperty, CommonPropertyOptions } from './CommonProperty';
-import { CombinePropertyDecorators } from './CombinePropertyDecorators';
+import { CombinePropertyDecorators } from '@techbir/common';
 
 export class FormatPropertyOptions extends CommonPropertyOptions {
   format?: 'email' | 'password' | 'uuid';

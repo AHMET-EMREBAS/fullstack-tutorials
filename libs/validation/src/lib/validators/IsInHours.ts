@@ -3,7 +3,7 @@ import {
   registerDecorator,
   ValidationOptions,
 } from 'class-validator';
-import { Hour } from '../types';
+import { Hour } from '@techbir/common';
 
 export function __IsInHours(date: Date, hours: Hour[]) {
   return hours.includes(date.getHours() as Hour);
