@@ -1,0 +1,14 @@
+{
+  "generators": {
+    "resource": {
+      "factory": "./src/generators/resource/generator",
+      "schema": "./src/generators/resource/schema.json",
+      "description": "resource generator"
+    },
+    "client-resource": {
+      "factory": "./src/generators/client-resource/generator",
+      "schema": "./src/generators/client-resource/schema.json",
+      "description": "client-resource generator"
+    }
+  }
+}
