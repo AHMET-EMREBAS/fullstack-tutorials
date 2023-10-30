@@ -22,28 +22,14 @@
   },
   "targetDefaults": {
     "build": {
-      "dependsOn": [
-        "^build",
-        "codegen",
-        "^codegen"
-      ],
-      "inputs": [
-        "production",
-        "^production"
-      ]
+      "dependsOn": ["^build", "codegen", "^codegen"],
+      "inputs": ["production", "^production"]
     },
     "test": {
-      "inputs": [
-        "default",
-        "^production",
-        "{workspaceRoot}/jest.preset.js"
-      ]
+      "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"]
     },
     "e2e": {
-      "inputs": [
-        "default",
-        "^production"
-      ]
+      "inputs": ["default", "^production"]
     },
     "lint": {
       "inputs": [
@@ -55,10 +41,7 @@
     }
   },
   "namedInputs": {
-    "default": [
-      "{projectRoot}/**/*",
-      "sharedGlobals"
-    ],
+    "default": ["{projectRoot}/**/*", "sharedGlobals"],
     "production": [
       "default",
       "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
@@ -108,7 +91,5 @@
       "bundler": "tsc"
     }
   },
-  "plugins": [
-    "@nx-dotnet/core"
-  ]
+  "plugins": ["@nx-dotnet/core"]
 }

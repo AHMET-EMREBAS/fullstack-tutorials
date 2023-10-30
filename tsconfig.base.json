@@ -14,15 +14,7 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {
-      "@techbir/common": ["libs/common/src/index.ts"],
-      "@techbir/core": ["libs/core/src/index.ts"],
-      "@techbir/database": ["libs/database/src/index.ts"],
-      "@techbir/material": ["libs/material/src/index.ts"],
-      "@techbir/models": ["libs/models/src/index.ts"],
-      "@techbir/rest": ["libs/rest/src/index.ts"],
-      "@techbir/utils": ["libs/utils/src/index.ts"]
-    }
+    "paths": {}
   },
   "exclude": ["node_modules", "tmp"]
 }
