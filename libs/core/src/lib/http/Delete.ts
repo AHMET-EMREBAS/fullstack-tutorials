@@ -1,20 +1,22 @@
-import { Get as __Get } from '@nestjs/common';
+import { Delete as __Delete } from '@nestjs/common';
 import { CombineMethodDecorators } from '@techbir/common';
 import {
   ApiInternalServerErrorResponse,
+  ApiNotFoundResponse,
   ApiOkResponse,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 
 /**
- * HTTP Get method
+ * HTTP Delete method
  * @param entity
  * @returns
  */
-export function Get(path: string) {
+export function Delete(path: string) {
   return CombineMethodDecorators(
-    __Get(path),
+    __Delete(path),
     ApiOkResponse(),
+    ApiNotFoundResponse(),
     ApiInternalServerErrorResponse(),
     ApiUnauthorizedResponse()
   );

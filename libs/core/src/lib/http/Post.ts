@@ -1,20 +1,22 @@
-import { Get as __Get } from '@nestjs/common';
+import { Post as __Post } from '@nestjs/common';
 import { CombineMethodDecorators } from '@techbir/common';
 import {
+  ApiCreatedResponse,
   ApiInternalServerErrorResponse,
-  ApiOkResponse,
   ApiUnauthorizedResponse,
+  ApiUnprocessableEntityResponse,
 } from '@nestjs/swagger';
 
 /**
- * HTTP Get method
+ * HTTP Post method
  * @param entity
  * @returns
  */
-export function Get(path: string) {
+export function Post(path: string) {
   return CombineMethodDecorators(
-    __Get(path),
-    ApiOkResponse(),
+    __Post(path),
+    ApiCreatedResponse(),
+    ApiUnprocessableEntityResponse(),
     ApiInternalServerErrorResponse(),
     ApiUnauthorizedResponse()
   );
