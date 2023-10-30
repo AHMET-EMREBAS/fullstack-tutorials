@@ -17,8 +17,7 @@
     "paths": {
       "@techbir/common": ["libs/common/src/index.ts"],
       "@techbir/core": ["libs/core/src/index.ts"],
-      "@techbir/gen": ["libs/gen/src/index.ts"],
-      "@techbir/validation": ["libs/validation/src/index.ts"]
+      "@techbir/gen": ["libs/gen/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

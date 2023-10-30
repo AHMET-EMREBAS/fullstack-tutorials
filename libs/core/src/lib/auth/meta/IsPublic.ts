@@ -3,7 +3,7 @@ import { SetMetadata } from '@nestjs/common';
 export const IS_PUBLIC = 'IS_PUBLIC';
 
 /**
- * Define resource route as public
+ * Public resource
  * @returns
  */
 export function IsPublic() {
