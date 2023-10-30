@@ -2,3 +2,4 @@
 export * from './ClassConstructor'
 export * from './Day'
 export * from './Hour'
+export * from './PropertyType'

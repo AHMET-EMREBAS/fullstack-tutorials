@@ -1,11 +1,17 @@
 # validation
 
-This library was generated with [Nx](https://nx.dev).
+Class validation library. 
 
-## Building
 
-Run `nx build validation` to build the library.
 
-## Running unit tests
+### Example 
 
-Run `nx test validation` to execute the unit tests via [Jest](https://jestjs.io).
+```
+
+export class Sample { 
+    
+    @Property({type:'string', minLength:3})
+    text?:string; 
+}
+
+```
