@@ -1,17 +1,26 @@
 import { Route } from '@angular/router';
+import { provideNavItems } from '@techbir/components';
 
 export const appRoutes: Route[] = [
   {
+    title: 'Welcome',
     path: '',
     loadComponent: () =>
       import('@techbir/components').then((c) => c.AppLayoutComponent),
 
-    children: [
-      {
-        path: '',
-        loadChildren: () =>
-          import('@techbir/components').then((m) => m.AuthRoutes),
-      },
+    providers: [
+      provideNavItems([
+        {
+          label: 'Auth',
+          route: 'auth',
+          icon: 'security',
+        },
+      ]),
     ],
+  },
+
+  {
+    path: 'auth',
+    loadChildren: () => import('@techbir/components').then((m) => m.AuthRoutes),
   },
 ];

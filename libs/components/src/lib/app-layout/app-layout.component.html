@@ -1,18 +1,60 @@
-<div class="al-container">
-  <mat-toolbar color="primary">
-    <img
-      src="./assets/icons/icon-72x72.png"
-      alt="Logo"
-      width="40"
-      height="40"
-    />
-  </mat-toolbar>
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+    fixedInViewport
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false"
+  >
+    <mat-toolbar>Menu</mat-toolbar>
+    <mat-nav-list>
+      <mat-list-item
+        *ngFor="let item of navItems"
+        [routerLink]="[item.route]"
+        routerLinkActive="router-link-active"
+      >
+        <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+        <span matListItemLine> {{ item.label }}</span>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
 
-  <div class="al-content">
-    <div class="al-sidenav">
-     
+  <mat-sidenav-content>
+    <mat-toolbar color="primary" class="sticy-top">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+      >
+        <mat-icon>{{ drawer.opened ? 'menu_open' : 'menu' }}</mat-icon>
+      </button>
+
+      <span>{{ title.getTitle() }}</span>
+
+      <div style="flex-grow: 1"></div>
+
+      <button mat-icon-button><mat-icon>manage_accounts</mat-icon></button>
+      <button mat-icon-button><mat-icon>settings_alert</mat-icon></button>
+      <button mat-icon-button><mat-icon>person</mat-icon></button>
+    </mat-toolbar>
+    <!-- Add Content Here -->
+
+    <div class="router-content">
+      <router-outlet></router-outlet>
     </div>
 
-    <router-outlet></router-outlet>
-  </div>
-</div>
+    <mat-toolbar color="primary" class="sticy-bottom">
+      <button mat-icon-button><mat-icon>notifications_active</mat-icon></button>
+      <button mat-icon-button><mat-icon>timer</mat-icon></button>
+      <button mat-icon-button>
+        <mat-icon>notifications_important</mat-icon>
+      </button>
+      <button mat-icon-button><mat-icon>notifications_paused</mat-icon></button>
+      <button mat-icon-button><mat-icon>add_alert</mat-icon></button>
+      <button mat-icon-button><mat-icon>room_service</mat-icon></button>
+      <button mat-icon-button><mat-icon>settings</mat-icon></button>
+    </mat-toolbar>
+  </mat-sidenav-content>
+</mat-sidenav-container>

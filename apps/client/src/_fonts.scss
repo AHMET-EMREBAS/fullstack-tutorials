@@ -73,3 +73,13 @@ $_fontsRoot: './assets/fonts';
   font-family: Dancing Script;
   src: url(./#{$_fontsRoot}/Dancing_Script/DancingScript-VariableFont_wght.ttf);
 }
+
+@font-face {
+  font-family: Material-Symbols;
+  src: url(./#{$_fontsRoot}/material-symbols.woff2);
+}
+
+.material-icons {
+  font-family: Material-Symbols;
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
