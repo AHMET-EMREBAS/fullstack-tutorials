@@ -1,0 +1,105 @@
+<ng-template #textField let-fv="fv">
+  <mat-form-field [formGroup]="fv.formGroup" appearance="outline">
+    <mat-label>{{ fv.label || fv.name | titlecase }}</mat-label>
+    <input
+      matInput
+      [formControlName]="fv.name"
+      [tbSetAttributes]="fv"
+      [formControlName]="fv.name"
+      [required]="fv.required"
+    />
+    <mat-icon matPrefix color="primary">{{ fv.icon || 'info' }}</mat-icon>
+  </mat-form-field>
+</ng-template>
+
+<!-- Checkbox  -->
+<ng-template #checkboxField let-fv="fv">
+  <div
+    style="visibility: hidden; position: absolute"
+    [formGroup]="fv.formGroup"
+  >
+    <input #hiddenInput type="text" [formControlName]="fv.name" />
+  </div>
+  <mat-checkbox [(ngModel)]="hiddenInput.value">{{
+    fv.label || fv.name | titlecase
+  }}</mat-checkbox>
+</ng-template>
+
+<!-- Date -->
+<ng-template #dateField let-fv="fv">
+  <mat-form-field>
+    <mat-label>{{ fv.label || fv.name | titlecase }}</mat-label>
+    <input matInput [matDatepicker]="picker" [tbSetAttributes]="fv" />
+    <mat-hint>MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+
+    <mat-icon matPrefix> {{ fv.icon || 'info' }}</mat-icon>
+  </mat-form-field>
+</ng-template>
+
+<!-- Radio Field -->
+<ng-template #radioField let-fv="fv">
+  <div
+    style="visibility: hidden; position: absolute"
+    [formGroup]="fv.formGroup"
+  >
+    <input #hiddenInput0 [formControlName]="fv.name" [(ngModel)]="value" />
+  </div>
+
+  <fieldset>
+    <legend>{{ fv.label || fv.name | titlecase }}</legend>
+
+    <mat-radio-group [id]="fv.name + '-id'" [(ngModel)]="value">
+      <mat-radio-button *ngFor="let option of fv.options" [value]="option">
+        {{ option }}
+      </mat-radio-button>
+    </mat-radio-group>
+  </fieldset>
+</ng-template>
+
+<!-- Select Field  -->
+
+<ng-template #selectField let-fv="fv">
+  <mat-form-field [formGroup]="fv.formGroup" appearance="outline">
+    <mat-label>{{ fv.label || fv.name | titlecase }}</mat-label>
+    <mat-select [formControlName]="fv.name" [multiple]="fv.multiple">
+      <mat-option *ngFor="let options of fv.options" [value]="options">{{
+        options
+      }}</mat-option>
+    </mat-select>
+    <mat-icon matPrefix color="primary">{{ fv.icon }}</mat-icon>
+  </mat-form-field>
+</ng-template>
+
+<ng-container
+  *ngIf="['text', 'email', 'password', 'number'].includes(field.type)"
+>
+  <ng-container
+    *ngTemplateOutlet="textField; context: { fv: field }"
+  ></ng-container>
+</ng-container>
+
+<ng-container *ngIf="['checkbox'].includes(field.type)">
+  <ng-container
+    *ngTemplateOutlet="checkboxField; context: { fv: field }"
+  ></ng-container>
+</ng-container>
+
+<ng-container *ngIf="['radio'].includes(field.type)">
+  <ng-container
+    *ngTemplateOutlet="radioField; context: { fv: field }"
+  ></ng-container>
+</ng-container>
+
+<ng-container *ngIf="['select'].includes(field.type)">
+  <ng-container
+    *ngTemplateOutlet="selectField; context: { fv: field }"
+  ></ng-container>
+</ng-container>
+
+<ng-container *ngIf="['date'].includes(field.type)">
+  <ng-container
+    *ngTemplateOutlet="dateField; context: { fv: field }"
+  ></ng-container>
+</ng-container>

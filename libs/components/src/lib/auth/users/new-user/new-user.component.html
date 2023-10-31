@@ -1,1 +1,129 @@
-<p>new-user works!</p>
+<ng-template
+  #textField
+  let-name="name"
+  let-type="type"
+  let-minLength="minLength"
+  let-maxLength="maxLength"
+  let-min="min"
+  let-max="max"
+  let-autocomplete="autocomplete"
+  let-formGroup="formGroup"
+  let-icon="icon"
+  let-label="label"
+>
+  <mat-form-field [formGroup]="formGroup" appearance="outline">
+    <mat-label>{{ label }}</mat-label>
+    <input matInput [formControlName]="name" [] />
+
+    <mat-icon matPrefix color="primary">{{ icon }}</mat-icon>
+  </mat-form-field>
+</ng-template>
+
+<mat-stepper>
+  <mat-step i18n-label label="Credentials">
+    <form [formGroup]="credentialsFormGroup" novalidate>
+      <!-- First Name -->
+      <tb-form-field
+        [field]="{
+          formGroup: credentialsFormGroup,
+          name: 'firstName',
+          label:'First Name',
+          type: 'text',
+          minLength: 3,
+          maxLength: 30,
+          autocomplete: 'given-name',
+          icon: 'badge',
+          required:true, 
+        }"
+      ></tb-form-field>
+
+      <!-- Last Name -->
+      <tb-form-field
+        [field]="{
+          formGroup: credentialsFormGroup,
+          name: 'lastName',
+          label:'Last Name',
+          type: 'text',
+          minLength: 3,
+          maxLength: 30,
+          autocomplete: 'family-name',
+          icon: 'badge',
+          required:true, 
+        }"
+      ></tb-form-field>
+
+      <!-- Gender -->
+      <tb-form-field
+        [field]="{
+          formGroup: credentialsFormGroup,
+          name: 'gender',
+          label: 'Biological Gender',
+          type: 'select',
+          autocomplete: 'family-name',
+          icon: 'man',
+          required: true,
+          options: ['Male', 'Female']
+        }"
+      ></tb-form-field>
+
+      <!-- Email -->
+      <tb-form-field
+        [field]="{
+          formGroup: credentialsFormGroup,
+          name: 'username',
+          label: 'Username',
+          type: 'email',
+          autocomplete: 'username',
+          icon: 'email',
+          required: true
+        }"
+      ></tb-form-field>
+
+      <!-- Password  -->
+      <tb-form-field
+        [field]="{
+          formGroup: credentialsFormGroup,
+          name: 'password',
+          label: 'Password',
+          type: 'password',
+          autocomplete: 'new-password',
+          icon: 'password',
+          required: true
+        }"
+      ></tb-form-field>
+
+      <tb-form-field
+        [field]="{
+          formGroup: credentialsFormGroup,
+          name: 'cpassword',
+          label: 'Confirm Password',
+          type: 'password',
+          autocomplete: 'new-password',
+          icon: 'password',
+          required: true
+        }"
+      ></tb-form-field>
+
+      <div class="form-actions">
+        <button
+          type="button"
+          mat-raised-button
+          (click)="resetForm(credentialsFormGroup)"
+          i18n
+        >
+          Reset
+        </button>
+        <button
+          type="button"
+          color="primary"
+          mat-raised-button
+          matStepperNext
+          i18n
+        >
+          Next
+        </button>
+      </div>
+    </form>
+  </mat-step>
+</mat-stepper>
+<!-- {{ credentialsFormGroup.value | json }} -->

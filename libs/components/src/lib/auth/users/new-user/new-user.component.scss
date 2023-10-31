@@ -1,0 +1,16 @@
+form {
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.form-actions {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  gap: 1em;
+  * {
+    flex-grow: 1;
+  }
+}
