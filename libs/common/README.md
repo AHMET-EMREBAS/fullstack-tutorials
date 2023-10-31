@@ -1,11 +1,3 @@
-# common
+# Common Classes, Interfaces, Types, and Functions
 
-This library was generated with [Nx](https://nx.dev).
-
-## Building
-
-Run `nx build common` to build the library.
-
-## Running unit tests
-
-Run `nx test common` to execute the unit tests via [Jest](https://jestjs.io).
+This library contains interfaces, types, and maybe utility functions which are used in both frontend and backend project.

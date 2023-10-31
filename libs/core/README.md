@@ -1,11 +1,4 @@
-# core
+# Core Classes, Interfaces, HTTP, and other Backend Related Code
 
-This library was generated with [Nx](https://nx.dev).
+This library contains only backend related code. We can create some wrapper functions, base and abstract classes to help us for backend development process. We can also call this library Backend Common library.
 
-## Building
-
-Run `nx build core` to build the library.
-
-## Running unit tests
-
-Run `nx test core` to execute the unit tests via [Jest](https://jestjs.io).

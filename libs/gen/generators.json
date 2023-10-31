@@ -9,6 +9,11 @@
       "factory": "./src/generators/client-resource/generator",
       "schema": "./src/generators/client-resource/schema.json",
       "description": "client-resource generator"
+    },
+    "entity": {
+      "factory": "./src/generators/entity/generator",
+      "schema": "./src/generators/entity/schema.json",
+      "description": "entity generator"
     }
   }
 }

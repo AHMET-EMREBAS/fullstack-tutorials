@@ -1,0 +1,11 @@
+import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import {  <%- className %> } from '@techbir/database';
+import { <%- className %>Controller } from './<%- fileName %>.controller';
+import { EventEmitterModule } from '@nestjs/event-emitter';
+
+@Module({
+  imports: [EventEmitterModule,TypeOrmModule.forFeature([<%- className %>])],
+  controllers: [<%- className %>Controller],
+})
+export class <%- className %>Module {}

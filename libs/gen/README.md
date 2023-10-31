@@ -1,11 +1,21 @@
-# gen
+# Resource Generator
 
-This library was generated with [Nx](https://nx.dev).
+This library is for generating entities and rest modules
 
-## Building
+### Example
 
-Run `nx build gen` to build the library.
+#### Genereate Entity
 
-## Running unit tests
+The command above will generate entity class and data-transfer-objects (dto) into libs/database folder
 
-Run `nx test gen` to execute the unit tests via [Jest](https://jestjs.io).
+```shell
+npx nx g @techbir/gen:entity entity-name
+```
+
+#### Genereate Rest Resource
+
+The command above will generate rest controller and module into libs/rest folder
+
+```shell
+npx nx g @techbir/gen:resource resource-name
+```
