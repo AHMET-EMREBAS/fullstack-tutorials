@@ -1,0 +1,75 @@
+@use 'sass:list';
+@use 'sass:math';
+$_fontsRoot: './assets/fonts';
+
+@font-face {
+  font-family: Handjet;
+  src: url(./#{$_fontsRoot}/Handjet/Handjet-VariableFont.ttf);
+}
+
+@font-face {
+  font-family: Roboto;
+  src: url(./#{$_fontsRoot}/Roboto_Flex/RobotoFlex.ttf);
+}
+
+@font-face {
+  font-family: Special Elite;
+  src: url(./#{$_fontsRoot}/Special_Elite/SpecialElite-Regular.ttf);
+}
+
+@font-face {
+  font-family: Josefin Sans;
+  src: url(./#{$_fontsRoot}/Josefin_Sans/JosefinSans-VariableFont_wght.ttf);
+}
+
+@font-face {
+  font-family: Josefin Sans;
+  font-style: italic;
+  src: url(./#{$_fontsRoot}/Josefin_Sans/JosefinSans-Italic-VariableFont_wght.ttf);
+}
+
+@font-face {
+  font-family: Lobster;
+  src: url(./#{$_fontsRoot}/Lobster/Lobster-Regular.ttf);
+}
+
+@font-face {
+  font-family: Comfortaa;
+  src: url(./#{$_fontsRoot}/Comfortaa/Comfortaa-VariableFont_wght.ttf);
+}
+
+@font-face {
+  font-family: Rubik Dirt;
+  src: url(./#{$_fontsRoot}/Rubik_Dirt/RubikDirt-Regular.ttf);
+}
+
+@font-face {
+  font-family: Rubik Iso;
+  src: url(./#{$_fontsRoot}/Rubik_Iso/RubikIso-Regular.ttf);
+}
+
+@font-face {
+  font-family: Black Ops One;
+  src: url(./#{$_fontsRoot}/Black_Ops_One/BlackOpsOne-Regular.ttf);
+}
+
+@font-face {
+  font-family: Concert One;
+  src: url(./#{$_fontsRoot}/Concert_One/ConcertOne-Regular.ttf);
+}
+
+@font-face {
+  font-family: Tourney;
+  src: url(./#{$_fontsRoot}/Tourney/Tourney-VariableFont_wdth.ttf);
+}
+
+@font-face {
+  font-family: Tourney;
+  font-style: italic;
+  src: url(./#{$_fontsRoot}/Tourney/Tourney-Italic-VariableFont_wdth.ttf);
+}
+
+@font-face {
+  font-family: Dancing Script;
+  src: url(./#{$_fontsRoot}/Dancing_Script/DancingScript-VariableFont_wght.ttf);
+}

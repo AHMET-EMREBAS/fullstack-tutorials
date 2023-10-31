@@ -1,0 +1,22 @@
+.common-flex {
+  gap: 1em;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.al-content {
+  @extend .row;
+  @extend .common-flex;
+}
+
+.al-sidenav {
+  @extend .column;
+  @extend .common-flex;
+}
