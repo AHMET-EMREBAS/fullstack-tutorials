@@ -61,7 +61,7 @@
       "unitTestRunner": "jest",
       "e2eTestRunner": "cypress",
       "projectNameAndRootFormat": "derived",
-      "standalone": false,
+      "standalone": true,
       "backendProject": "api",
       "routing": true
     },

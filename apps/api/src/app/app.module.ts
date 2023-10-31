@@ -1,14 +1,17 @@
-import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { Module, OnModuleInit } from '@nestjs/common';
+import { InjectRepository, TypeOrmModule } from '@nestjs/typeorm';
 import { CategoryModule, DepartmentModule } from '@techbir/rest';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { EventService } from './events/events.service';
 import { ScheduleModule } from '@nestjs/schedule';
 import { CronsService } from './crons';
 import { ServerSideEventsController } from './events';
-import { EmailConfig, JwtConfig } from './config';
-import { AuthModule, EmailModule } from '@techbir/core';
+import { EmailConfig, JwtConfig, DatabaseConfig } from './config';
+import { AuthModule, EmailModule, Permission, Role, User } from '@techbir/core';
 import { JwtModule } from '@nestjs/jwt';
+import { Repository } from 'typeorm';
+import { Category, Department } from '@techbir/database';
+import { seedAuth, seedCategory } from './seed';
 
 @Module({
   imports: [
@@ -18,13 +21,8 @@ import { JwtModule } from '@nestjs/jwt';
     }),
     JwtModule.register({ ...JwtConfig }),
     EmailModule.register({ ...EmailConfig }),
-    TypeOrmModule.forRoot({
-      type: 'better-sqlite3',
-      database: './tmp/database.sqlite',
-      autoLoadEntities: true,
-      synchronize: true,
-      dropSchema: true,
-    }),
+    TypeOrmModule.forRoot({ ...DatabaseConfig }),
+    TypeOrmModule.forFeature([User, Role, Permission, Category, Department]),
     AuthModule,
     CategoryModule,
     DepartmentModule,
@@ -32,4 +30,20 @@ import { JwtModule } from '@nestjs/jwt';
   controllers: [ServerSideEventsController],
   providers: [EventService, CronsService],
 })
-export class AppModule {}
+export class AppModule implements OnModuleInit {
+  constructor(
+    @InjectRepository(Category)
+    private readonly categoryRepo: Repository<Category>,
+    @InjectRepository(Department)
+    private readonly departmentRepo: Repository<Department>,
+    @InjectRepository(Role) private readonly roleRepo: Repository<Role>,
+    @InjectRepository(Permission)
+    private readonly permissionRepo: Repository<Permission>,
+    @InjectRepository(User) private readonly userRepo: Repository<User>
+  ) {}
+
+  onModuleInit() {
+    seedCategory(this.departmentRepo, this.categoryRepo);
+    seedAuth(this.userRepo, this.roleRepo, this.permissionRepo);
+  }
+}

@@ -19,7 +19,11 @@ export async function seedAuth(
 
   for (const action of actions) {
     for (const resource of resources) {
-      await permissionRepo.save({ name: `${action}.${resource}` });
+      try {
+        await permissionRepo.save({ name: `${action}.${resource}` });
+      } catch (err) {
+        console.error(err);
+      }
     }
   }
 
@@ -53,6 +57,9 @@ export async function seedAuth(
   try {
     // Create root user
     await userRepo.save({
+      firstName: 'root',
+      lastName: 'root',
+
       username: UserConfig.ROOT_USERNAME,
       password: UserConfig.ROOT_PASSWORD,
       isAdmin: true,

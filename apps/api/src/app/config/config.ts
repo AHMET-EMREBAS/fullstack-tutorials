@@ -1,4 +1,5 @@
 import { JwtModuleOptions } from '@nestjs/jwt';
+import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { EmailOptions } from '@techbir/core';
 import { v4 } from 'uuid';
 
@@ -25,4 +26,10 @@ export const EmailConfig: EmailOptions = {
   website: process.env.WEBSITE || 'https://emrebas.tech',
 };
 
-console.table(UserConfig);
+export const DatabaseConfig: TypeOrmModuleOptions = {
+  type: 'better-sqlite3',
+  database: './tmp/database.sqlite',
+  autoLoadEntities: true,
+  synchronize: true,
+  dropSchema: true,
+};
