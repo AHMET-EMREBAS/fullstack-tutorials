@@ -24,9 +24,7 @@ export function provideEmailOptions(options: EmailOptions): ValueProvider {
 export class EmailService {
   constructor(
     @Inject(EMAIL_OPTIONS) private readonly emailOptions: EmailOptions
-  ) {
-    console.log('Email Options', emailOptions);
-  }
+  ) {}
   transporter() {
     return createTransport({
       service: 'gmail',
