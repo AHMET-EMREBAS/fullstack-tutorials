@@ -11,54 +11,51 @@ import {
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { InjectRepository } from '@nestjs/typeorm';
-import {
-  UpdateDepartmentDto,
-  Department,
-  DepartmentDto,
-} from '@techbir/database';
 import { Repository } from 'typeorm';
 import { EventEmitter2 } from '@nestjs/event-emitter';
+import { Permission } from './permission.entity';
+import { PermissionDto, UpdatePermissionDto } from './permission.dto';
 
-@ApiTags('DepartmentController')
+@ApiTags('Permission Controller')
 @Controller()
-export class DepartmentController {
+export class PermissionController {
   constructor(
-    @InjectRepository(Department) private readonly repo: Repository<Department>,
+    @InjectRepository(Permission) private readonly repo: Repository<Permission>,
     private readonly eventEmitter: EventEmitter2
   ) {}
 
-  @Get('departments')
+  @Get('permissions')
   find() {
     return this.repo.find();
   }
 
-  @Get('department/:id')
+  @Get('permission/:id')
   findOneById(@Param('id', ParseIntPipe) id: number) {
     return this.repo.findOneBy({ id });
   }
 
-  @Post('department')
-  async save(@Body(ValidationPipe) body: DepartmentDto) {
+  @Post('permission')
+  async save(@Body(ValidationPipe) body: PermissionDto) {
     const { id } = await this.repo.save(body);
     const found = await this.repo.findOneBy({ id });
-    this.eventEmitter.emit('department.save', found);
+    this.eventEmitter.emit('permission.save', found);
     return found;
   }
 
-  @Put('department/:id')
+  @Put('permission/:id')
   async update(
     @Param('id', ParseIntPipe) id: number,
-    @Body(ValidationPipe) body: UpdateDepartmentDto
+    @Body(ValidationPipe) body: UpdatePermissionDto
   ) {
     const updated = await this.repo.update(id, body);
-    this.eventEmitter.emit('department.update', updated);
+    this.eventEmitter.emit('permission.update', updated);
     return updated;
   }
 
-  @Delete('department/:id')
+  @Delete('permission/:id')
   async delete(@Param('id', ParseIntPipe) id: number) {
     const deleted = await this.repo.delete(id);
-    this.eventEmitter.emit('department.delete', deleted);
+    this.eventEmitter.emit('permission.delete', deleted);
     return deleted;
   }
 }

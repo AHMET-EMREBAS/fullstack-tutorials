@@ -11,54 +11,51 @@ import {
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { InjectRepository } from '@nestjs/typeorm';
-import {
-  UpdateDepartmentDto,
-  Department,
-  DepartmentDto,
-} from '@techbir/database';
 import { Repository } from 'typeorm';
 import { EventEmitter2 } from '@nestjs/event-emitter';
+import { Role } from './role.entity';
+import { RoleDto, UpdateRoleDto } from './role.dto';
 
-@ApiTags('DepartmentController')
+@ApiTags('Role Controller')
 @Controller()
-export class DepartmentController {
+export class RoleController {
   constructor(
-    @InjectRepository(Department) private readonly repo: Repository<Department>,
+    @InjectRepository(Role) private readonly repo: Repository<Role>,
     private readonly eventEmitter: EventEmitter2
   ) {}
 
-  @Get('departments')
+  @Get('roles')
   find() {
     return this.repo.find();
   }
 
-  @Get('department/:id')
+  @Get('role/:id')
   findOneById(@Param('id', ParseIntPipe) id: number) {
     return this.repo.findOneBy({ id });
   }
 
-  @Post('department')
-  async save(@Body(ValidationPipe) body: DepartmentDto) {
+  @Post('role')
+  async save(@Body(ValidationPipe) body: RoleDto) {
     const { id } = await this.repo.save(body);
     const found = await this.repo.findOneBy({ id });
-    this.eventEmitter.emit('department.save', found);
+    this.eventEmitter.emit('role.save', found);
     return found;
   }
 
-  @Put('department/:id')
+  @Put('role/:id')
   async update(
     @Param('id', ParseIntPipe) id: number,
-    @Body(ValidationPipe) body: UpdateDepartmentDto
+    @Body(ValidationPipe) body: UpdateRoleDto
   ) {
     const updated = await this.repo.update(id, body);
-    this.eventEmitter.emit('department.update', updated);
+    this.eventEmitter.emit('role.update', updated);
     return updated;
   }
 
-  @Delete('department/:id')
+  @Delete('role/:id')
   async delete(@Param('id', ParseIntPipe) id: number) {
     const deleted = await this.repo.delete(id);
-    this.eventEmitter.emit('department.delete', deleted);
+    this.eventEmitter.emit('role.delete', deleted);
     return deleted;
   }
 }

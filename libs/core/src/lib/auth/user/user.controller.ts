@@ -11,54 +11,51 @@ import {
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { InjectRepository } from '@nestjs/typeorm';
-import {
-  UpdateDepartmentDto,
-  Department,
-  DepartmentDto,
-} from '@techbir/database';
 import { Repository } from 'typeorm';
 import { EventEmitter2 } from '@nestjs/event-emitter';
+import { User } from './user.entity';
+import { UpdateUserDto, UserDto } from './user.dto';
 
-@ApiTags('DepartmentController')
+@ApiTags('User Controller')
 @Controller()
-export class DepartmentController {
+export class UserController {
   constructor(
-    @InjectRepository(Department) private readonly repo: Repository<Department>,
+    @InjectRepository(User) private readonly repo: Repository<User>,
     private readonly eventEmitter: EventEmitter2
   ) {}
 
-  @Get('departments')
+  @Get('users')
   find() {
     return this.repo.find();
   }
 
-  @Get('department/:id')
+  @Get('user/:id')
   findOneById(@Param('id', ParseIntPipe) id: number) {
     return this.repo.findOneBy({ id });
   }
 
-  @Post('department')
-  async save(@Body(ValidationPipe) body: DepartmentDto) {
+  @Post('user')
+  async save(@Body(ValidationPipe) body: UserDto) {
     const { id } = await this.repo.save(body);
     const found = await this.repo.findOneBy({ id });
-    this.eventEmitter.emit('department.save', found);
+    this.eventEmitter.emit('user.save', found);
     return found;
   }
 
-  @Put('department/:id')
+  @Put('user/:id')
   async update(
     @Param('id', ParseIntPipe) id: number,
-    @Body(ValidationPipe) body: UpdateDepartmentDto
+    @Body(ValidationPipe) body: UpdateUserDto
   ) {
     const updated = await this.repo.update(id, body);
-    this.eventEmitter.emit('department.update', updated);
+    this.eventEmitter.emit('user.update', updated);
     return updated;
   }
 
-  @Delete('department/:id')
+  @Delete('user/:id')
   async delete(@Param('id', ParseIntPipe) id: number) {
     const deleted = await this.repo.delete(id);
-    this.eventEmitter.emit('department.delete', deleted);
+    this.eventEmitter.emit('user.delete', deleted);
     return deleted;
   }
 }

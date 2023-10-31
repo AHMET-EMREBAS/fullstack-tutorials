@@ -1,2 +1,2 @@
-// @index('./*', f => `export * from '${f.path}'`)
-export * from './IsPublic';
+export * from './is-public';
+export * from './has-permission';

@@ -1,8 +1,8 @@
 import { Column, Entity } from 'typeorm';
-import { BaseEntity} from '@techbir/core'
+import { BaseEntity } from '../../base';
 
 @Entity()
-export class Category extends BaseEntity {
+export class Permission extends BaseEntity {
   @Column({ type: 'varchar', unique: true })
   name!: string;
 }

@@ -1,29 +1,24 @@
 import { Module, OnModuleInit } from '@nestjs/common';
 import { InjectRepository, TypeOrmModule } from '@nestjs/typeorm';
-import {
-  CategoryModule,
-  DepartmentModule,
-  PermissionModule,
-  RoleModule,
-  UserModule,
-} from '@techbir/rest';
-
+import { CategoryModule, DepartmentModule } from '@techbir/rest';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { EventService } from './events/events.service';
 import { ScheduleModule } from '@nestjs/schedule';
 import { CronsService } from './crons';
 import { ServerSideEventsController } from './events';
 import { Repository } from 'typeorm';
+import { Category, Department } from '@techbir/database';
+import { seedAuth, seedCategory } from './seed';
+import { EmailConfig, JwtConfig, UserConfig } from './config';
 import {
-  Category,
-  Department,
+  AuthModule,
+  EmailModule,
+  EmailService,
   Permission,
   Role,
   User,
-} from '@techbir/database';
-import { seedAuth, seedCategory } from './seed';
-import { EmailEventsService, EmailService } from './email';
-import { Config } from './config';
+} from '@techbir/core';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -31,6 +26,10 @@ import { Config } from './config';
     EventEmitterModule.forRoot({
       delimiter: '.',
     }),
+
+    JwtModule.register({ ...JwtConfig }),
+    EmailModule.register({ ...EmailConfig }),
+
     TypeOrmModule.forRoot({
       type: 'better-sqlite3',
       database: './tmp/database.sqlite',
@@ -39,14 +38,13 @@ import { Config } from './config';
       dropSchema: true,
     }),
     TypeOrmModule.forFeature([User, Role, Permission, Category, Department]),
-    UserModule,
-    RoleModule,
-    PermissionModule,
+
+    AuthModule,
     CategoryModule,
     DepartmentModule,
   ],
   controllers: [ServerSideEventsController],
-  providers: [EventService, CronsService, EmailService, EmailEventsService],
+  providers: [EventService, CronsService],
 })
 export class AppModule implements OnModuleInit {
   constructor(
@@ -66,7 +64,7 @@ export class AppModule implements OnModuleInit {
     await seedCategory(this.departmentRepo, this.categoryRepo);
 
     await this.emailService.info({
-      to: Config.EMAIL_ADDRESS,
+      to: UserConfig.ROOT_USERNAME,
       subject: 'Welcome',
       text: 'Thank you fo choosing us. For any assistance, use live chat or send us email throught question@aemrebas.com \n Have an amazing day!',
     });

@@ -1,5 +1,5 @@
 import { Column, Entity } from 'typeorm';
-import { BaseEntity } from '../common';
+import { BaseEntity } from '@techbir/core';
 
 @Entity()
 export class Department extends BaseEntity {
