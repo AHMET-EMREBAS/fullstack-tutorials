@@ -140,7 +140,6 @@ export const commonDepartmentsAndCategoreis = {
   'Software and Digital Products': [
     'Software Licenses',
     'Digital Subscriptions',
-    'E-books',
     'Video Streaming',
     'Game Downloads',
   ],

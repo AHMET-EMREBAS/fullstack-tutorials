@@ -1,6 +1,13 @@
 import { Permission, Role, User } from '@techbir/database';
 import { Repository } from 'typeorm';
+import { ENV } from '../environment';
 
+/**
+ * Create permissions and roles
+ * @param userRepo
+ * @param roleRepo
+ * @param permissionRepo
+ */
 export async function seedAuth(
   userRepo: Repository<User>,
   roleRepo: Repository<Role>,
@@ -38,8 +45,8 @@ export async function seedAuth(
 
     // Create root user
     const saved = await userRepo.save({
-      username: process.env.APP_USERNAME,
-      password: process.env.APP_PASSWORD,
+      username: ENV.ROOT_USERNAME,
+      password: ENV.ROOT_PASSWORD,
     });
   }, 3000);
 }

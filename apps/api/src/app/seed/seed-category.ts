@@ -9,12 +9,16 @@ export async function seedCategory(
   for (const [key, value] of Object.entries(commonDepartmentsAndCategoreis)) {
     try {
       await departmentRepo.save({ name: key });
-    } catch (err) {}
+    } catch (err) {
+      // Ignore
+    }
 
     for (const cat of value) {
       try {
         await categoryRepo.save({ name: cat });
-      } catch (err) {}
+      } catch (err) {
+        // Ignore
+      }
     }
   }
 }
