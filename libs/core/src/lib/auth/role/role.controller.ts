@@ -35,7 +35,7 @@ export class RoleController {
   }
 
   @Post('role')
-  async save(@Body(ValidationPipe) body: RoleDto) {
+  async save(@Body(new ValidationPipe({ transform: true })) body: RoleDto) {
     const { id } = await this.repo.save(body);
     const found = await this.repo.findOneBy({ id });
     this.eventEmitter.emit('role.save', found);
@@ -45,7 +45,7 @@ export class RoleController {
   @Put('role/:id')
   async update(
     @Param('id', ParseIntPipe) id: number,
-    @Body(ValidationPipe) body: UpdateRoleDto
+    @Body(new ValidationPipe({ transform: true })) body: UpdateRoleDto
   ) {
     const updated = await this.repo.update(id, body);
     this.eventEmitter.emit('role.update', updated);

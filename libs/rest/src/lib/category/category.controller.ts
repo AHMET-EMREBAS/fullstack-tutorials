@@ -34,7 +34,7 @@ export class CategoryController {
   }
 
   @Post('category')
-  async save(@Body(ValidationPipe) body: CategoryDto) {
+  async save(@Body(new ValidationPipe({ transform: true })) body: CategoryDto) {
     const { id } = await this.repo.save(body);
     const found = await this.repo.findOneBy({ id });
     this.eventEmitter.emit('category.save', found);
@@ -44,7 +44,7 @@ export class CategoryController {
   @Put('category/:id')
   async update(
     @Param('id', ParseIntPipe) id: number,
-    @Body(ValidationPipe) body: UpdateCategoryDto
+    @Body(new ValidationPipe({ transform: true })) body: UpdateCategoryDto
   ) {
     const updated = await this.repo.update(id, body);
     this.eventEmitter.emit('category.update', updated);

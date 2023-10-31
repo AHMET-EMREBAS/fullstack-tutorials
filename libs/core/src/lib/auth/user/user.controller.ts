@@ -35,7 +35,7 @@ export class UserController {
   }
 
   @Post('user')
-  async save(@Body(ValidationPipe) body: UserDto) {
+  async save(@Body(new ValidationPipe({ transform: true })) body: UserDto) {
     const { id } = await this.repo.save(body);
     const found = await this.repo.findOneBy({ id });
     this.eventEmitter.emit('user.save', found);
@@ -45,7 +45,7 @@ export class UserController {
   @Put('user/:id')
   async update(
     @Param('id', ParseIntPipe) id: number,
-    @Body(ValidationPipe) body: UpdateUserDto
+    @Body(new ValidationPipe({ transform: true })) body: UpdateUserDto
   ) {
     const updated = await this.repo.update(id, body);
     this.eventEmitter.emit('user.update', updated);

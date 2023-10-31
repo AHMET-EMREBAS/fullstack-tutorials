@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post, ValidationPipe } from '@nestjs/common';
 import {
   LoginDto,
   SignupDto,
@@ -24,20 +24,20 @@ export class AuthController {
 
   @IsPublic()
   @Post('login')
-  async login(@Body() body: LoginDto) {
-    console.log(body)
+  async login(@Body(new ValidationPipe({ transform: true })) body: LoginDto) {
+    console.log(body);
     const access_code = await this.authService.login(body);
     return { access_code };
   }
 
   @IsPublic()
   @Post('signup')
-  async signup(@Body() body: SignupDto) {
+  async signup(@Body(new ValidationPipe({ transform: true })) body: SignupDto) {
     const access_code = await this.authService.signup({
       ...body,
     });
 
-    this.emailService.security({
+    await this.emailService.security({
       to: body.username,
       subject: 'Welcome',
       text: 'Thanks for choosing our service.',
@@ -50,7 +50,9 @@ export class AuthController {
 
   @IsPublic()
   @Post('forgot-password')
-  async forgotPassword(@Body() body: ForgotPasswordDto) {
+  async forgotPassword(
+    @Body(new ValidationPipe({ transform: true })) body: ForgotPasswordDto
+  ) {
     return await this.authService.forgotPassword(body);
   }
 
@@ -61,7 +63,10 @@ export class AuthController {
   }
 
   @Post('reset-password-with-code')
-  async resetPasswordWithCode(@Body() body: ResetPasswordWithCodeDto) {
+  async resetPasswordWithCode(
+    @Body(new ValidationPipe({ transform: true }))
+    body: ResetPasswordWithCodeDto
+  ) {
     const access_code = await this.authService.resetPasswordWithCode(body);
     return { access_code };
   }

@@ -35,7 +35,7 @@ export class PermissionController {
   }
 
   @Post('permission')
-  async save(@Body(ValidationPipe) body: PermissionDto) {
+  async save(@Body(new ValidationPipe({ transform: true })) body: PermissionDto) {
     const { id } = await this.repo.save(body);
     const found = await this.repo.findOneBy({ id });
     this.eventEmitter.emit('permission.save', found);
@@ -45,7 +45,7 @@ export class PermissionController {
   @Put('permission/:id')
   async update(
     @Param('id', ParseIntPipe) id: number,
-    @Body(ValidationPipe) body: UpdatePermissionDto
+    @Body(new ValidationPipe({ transform: true })) body: UpdatePermissionDto
   ) {
     const updated = await this.repo.update(id, body);
     this.eventEmitter.emit('permission.update', updated);

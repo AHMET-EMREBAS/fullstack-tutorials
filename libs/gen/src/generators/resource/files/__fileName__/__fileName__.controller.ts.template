@@ -34,7 +34,7 @@ export class <%- className %>Controller {
   }
 
   @Post('<%- fileName %>')
-  async save(@Body(ValidationPipe) body: <%- className %>Dto) {
+  async save(@Body(new ValidationPipe({ transform: true })) body: <%- className %>Dto) {
     const { id } = await this.repo.save(body);
     const found = await this.repo.findOneBy({ id });
     this.eventEmitter.emit('<%- fileName %>.save', found);
@@ -44,7 +44,7 @@ export class <%- className %>Controller {
   @Put('<%- fileName %>/:id')
   async update(
     @Param('id', ParseIntPipe) id: number,
-    @Body(ValidationPipe) body: Update<%- className %>Dto
+    @Body(new ValidationPipe({ transform: true })) body: Update<%- className %>Dto
   ) {
     const updated =  await  this.repo.update(id, body);
     this.eventEmitter.emit('<%- fileName %>.update',updated);
