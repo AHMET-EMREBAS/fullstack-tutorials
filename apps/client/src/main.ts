@@ -1,11 +1,12 @@
 import { bootstrapApplication } from '@angular/platform-browser';
 
 import { AppComponent } from './app/app.component';
-import { ApplicationConfig, isDevMode } from '@angular/core';
+import { isDevMode } from '@angular/core';
 import {
   provideRouter,
   withEnabledBlockingInitialNavigation,
   withHashLocation,
+  withRouterConfig,
 } from '@angular/router';
 import { provideServiceWorker } from '@angular/service-worker';
 import { provideAnimations } from '@angular/platform-browser/animations';
@@ -13,11 +14,7 @@ import { appRoutes } from './app/app.routes';
 import { provideStore } from '@ngrx/store';
 import { provideEntityData } from '@ngrx/data';
 import { provideEffects } from '@ngrx/effects';
-import {
-  HTTP_INTERCEPTORS,
-  HttpHeaders,
-  provideHttpClient,
-} from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient } from '@angular/common/http';
 
 import { Injectable } from '@angular/core';
 import {
@@ -53,10 +50,12 @@ bootstrapApplication(AppComponent, {
     provideEffects(),
     provideEntityData({}),
     provideAnimations(),
+
     provideRouter(
       appRoutes,
       withEnabledBlockingInitialNavigation(),
-      withHashLocation()
+      withHashLocation(),
+      withRouterConfig({ onSameUrlNavigation: 'reload' })
     ),
     provideServiceWorker('ngsw-worker.js', {
       enabled: !isDevMode(),

@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { provideNavItems } from '../app-layout';
 
 @Component({
-  selector: 'techbir-auth',
+  selector: 'tb-auth',
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './auth.component.html',

@@ -9,9 +9,10 @@ export const AuthRoutes: Routes = [
       import('../app-layout').then((c) => c.AppLayoutComponent),
     providers: [
       provideNavItems([
+        { label: 'Go Back', icon: 'arrow_back', route: '../' },
         {
           label: 'Users',
-          route: 'manage-user',
+          route: 'users',
           icon: 'manage_accounts',
         },
         {
@@ -19,25 +20,29 @@ export const AuthRoutes: Routes = [
           route: 'roles',
           icon: 'shield',
         },
+        {
+          label: 'Permissions',
+          route: 'permissions',
+          icon: 'security',
+        },
       ]),
     ],
-
-    children: [
-      {
-        path: '',
-        loadComponent: () =>
-          import('./auth.component').then((c) => c.AuthComponent),
-        children: [
-          {
-            title: 'Manage User',
-            path: 'manage-user',
-            loadComponent: () =>
-              import('./manage-user/manage-user.component').then(
-                (c) => c.ManageUserComponent
-              ),
-          },
-        ],
-      },
-    ],
+  },
+  {
+    path: 'users',
+    loadChildren: () =>
+      import('./users/users.rotues').then((c) => c.UserRoutes),
+  },
+  {
+    path: 'roles',
+    loadComponent: () =>
+      import('./roles/roles.component').then((c) => c.RolesComponent),
+  },
+  {
+    path: 'permissions',
+    loadComponent: () =>
+      import('./permissions/permissions.component').then(
+        (c) => c.PermissionsComponent
+      ),
   },
 ];
