@@ -24,30 +24,40 @@ export async function seedAuth(
   }
 
   for (const role of roles) {
-    await roleRepo.save({ name: role });
+    try {
+      await roleRepo.save({ name: role });
+    } catch (err) {
+      console.error(err);
+    }
   }
 
-  setTimeout(async () => {
-    // Getting permissions
-    const savedPermissions = await permissionRepo.find();
+  // Getting permissions
+  const savedPermissions = await permissionRepo.find();
 
-    // Creating admin role
-    const adminRole = await roleRepo.findOne({ where: { name: 'admin' } });
+  // Creating admin role
+  const adminRole = await roleRepo.findOne({ where: { name: 'admin' } });
 
-    // Adding admin permissions to admin role
-    for (const permission of savedPermissions) {
+  // Adding admin permissions to admin role
+  for (const permission of savedPermissions) {
+    try {
       await roleRepo
         .createQueryBuilder()
         .relation('permissions')
         .of(adminRole.id)
         .add(permission.id);
+    } catch (err) {
+      console.error(err);
     }
+  }
 
+  try {
     // Create root user
     await userRepo.save({
       username: UserConfig.ROOT_USERNAME,
       password: UserConfig.ROOT_PASSWORD,
       isAdmin: true,
     });
-  }, 3000);
+  } catch (err) {
+    console.error(err);
+  }
 }

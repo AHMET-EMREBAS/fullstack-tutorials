@@ -6,11 +6,24 @@ import {
   IsNotEmpty,
   IsOptional,
   IsStrongPassword,
+  Length,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 @Exclude()
 export class UserDto {
+  @Expose()
+  @ApiProperty()
+  @Length(3, 30)
+  @IsNotEmpty()
+  firstName!: string;
+
+  @Expose()
+  @ApiProperty()
+  @Length(3, 30)
+  @IsNotEmpty()
+  lastName!: string;
+
   @Expose()
   @ApiProperty()
   @IsEmail()
@@ -24,7 +37,7 @@ export class UserDto {
   password!: string;
 
   @Expose()
-  @ApiProperty()
+  @ApiProperty({ default: false })
   @IsBoolean()
   @IsOptional()
   isAdmin?: boolean;

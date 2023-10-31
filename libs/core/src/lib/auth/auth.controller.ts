@@ -11,18 +11,21 @@ import { OAuth2Client } from 'google-auth-library/build/src';
 import { AuthService } from './auth.service';
 import { IsPublic } from './meta';
 import { EmailService } from '../email';
+import { EventEmitter2 } from '@nestjs/event-emitter';
 
 @ApiTags('AuthController')
 @Controller('auth')
 export class AuthController {
   constructor(
     private readonly authService: AuthService,
-    private readonly emailService: EmailService
+    private readonly emailService: EmailService,
+    private readonly eventEmitter: EventEmitter2
   ) {}
 
   @IsPublic()
   @Post('login')
   async login(@Body() body: LoginDto) {
+    console.log(body)
     const access_code = await this.authService.login(body);
     return { access_code };
   }
@@ -39,6 +42,8 @@ export class AuthController {
       subject: 'Welcome',
       text: 'Thanks for choosing our service.',
     });
+
+    this.eventEmitter.emit('auth.signup', body);
 
     return { access_code };
   }

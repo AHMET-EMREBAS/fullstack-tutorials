@@ -34,8 +34,8 @@ export class AuthService {
     return code;
   }
 
-  findByUsername(username: string) {
-    return this.userRepo.findOneBy({ username });
+  async findByUsername(username: string) {
+    return await this.userRepo.findOneBy({ username });
   }
 
   /**

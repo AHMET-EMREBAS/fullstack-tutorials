@@ -6,7 +6,10 @@ import { v4 } from 'uuid';
 
 @Entity()
 export class User extends BaseEntity {
-  @Column({ type: 'varchar' })
+  @Column({ type: 'varchar' }) firstName?: string;
+  @Column({ type: 'varchar' }) lastName?: string;
+
+  @Column({ type: 'varchar', unique: true })
   username!: string;
 
   @Column({

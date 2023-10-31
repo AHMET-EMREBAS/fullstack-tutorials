@@ -22,4 +22,7 @@ export const EmailConfig: EmailOptions = {
   securityEmail: process.env.SECURITY_EMAIL,
   qaEmail: process.env.QA_EMAIL,
   orgName: process.env.ORG_NAME,
+  website: process.env.WEBSITE || 'https://emrebas.tech',
 };
+
+console.table(UserConfig);

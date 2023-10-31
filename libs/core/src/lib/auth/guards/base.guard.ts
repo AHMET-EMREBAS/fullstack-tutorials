@@ -13,8 +13,6 @@ export class BaseGuard {
   private extractToken(context: ExecutionContext): string | undefined {
     const request = context.switchToHttp().getRequest();
 
-    console.log(request.headers);
-
     const [type, token] = request.headers.authorization?.split(' ') ?? [];
     return type === 'Bearer' ? token : undefined;
   }

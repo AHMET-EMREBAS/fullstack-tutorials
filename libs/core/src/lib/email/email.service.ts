@@ -9,6 +9,7 @@ export type EmailOptions = {
   infoEmail: string;
   securityEmail: string;
   qaEmail: string;
+  website: string;
 };
 
 export const EMAIL_OPTIONS = 'EMAIL_OPTIONS';

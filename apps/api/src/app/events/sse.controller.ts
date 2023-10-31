@@ -1,6 +1,6 @@
 import { Controller, Sse } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { BehaviorSubject, interval, map, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, interval, map, switchMap } from 'rxjs';
 
 export const SSE = new BehaviorSubject({});
 

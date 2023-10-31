@@ -10,14 +10,14 @@ export async function seedCategory(
     try {
       await departmentRepo.save({ name: key });
     } catch (err) {
-      // Ignore
+      console.error(err);
     }
 
     for (const cat of value) {
       try {
         await categoryRepo.save({ name: cat });
       } catch (err) {
-        // Ignore
+        console.error(err);
       }
     }
   }

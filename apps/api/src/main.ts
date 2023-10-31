@@ -3,10 +3,10 @@ import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app/app.module';
 import * as helmet from 'helmet';
+import { EmailConfig } from './app/config';
+
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, {
-    logger: ['error', 'warn', 'log', 'debug', 'fatal'],
-  });
+  const app = await NestFactory.create(AppModule);
   const globalPrefix = 'api';
 
   app.use(helmet.default());
@@ -17,7 +17,13 @@ async function bootstrap() {
 
   const port = process.env.PORT || 3000;
 
-  const config = new DocumentBuilder().build();
+  const config = new DocumentBuilder()
+    .setTitle('API')
+    .setVersion('1.0v')
+    .addTag('Techbir')
+    .addBearerAuth({ type: 'http' }, 'authToken')
+    .setContact(EmailConfig.orgName, EmailConfig.website, EmailConfig.infoEmail)
+    .build();
 
   const doc = SwaggerModule.createDocument(app, config);
 
