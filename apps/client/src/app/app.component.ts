@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { BrowserModule, Title } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Component } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+
 import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'techbir-root',
-  template: 'router-outlet',
+  template: '<router-outlet></router-outlet>',
   standalone: true,
-  imports: [BrowserModule, BrowserAnimationsModule, RouterModule],
+  imports: [RouterModule],
 })
 export class AppComponent {
   constructor(public readonly title: Title) {}

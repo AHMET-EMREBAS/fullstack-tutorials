@@ -22,6 +22,7 @@
         "assets": [
           "apps/client/src/favicon.ico",
           "apps/client/src/assets",
+          "apps/client/src/manifest.webmanifest",
           "apps/client/src/manifest.webmanifest"
         ],
         "styles": [
