@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { createTransport } from 'nodemailer';
 import { MailOptions } from 'nodemailer/lib/json-transport';
-import { ENV } from './environment';
+import { Config } from '../config';
 
 @Injectable()
 export class EmailService {
@@ -10,8 +10,8 @@ export class EmailService {
       service: 'gmail',
       secure: true,
       auth: {
-        user: ENV.EMAIL_ADDRESS,
-        pass: ENV.EMAIL_PASSWORD,
+        user: Config.EMAIL_ADDRESS,
+        pass: Config.EMAIL_PASSWORD,
       },
     });
   }
@@ -19,31 +19,25 @@ export class EmailService {
   async info(options?: MailOptions) {
     return await this.send({
       ...options,
-      from: `"${ENV.ORG_NAME} | 💁🏻‍♂️ Information" <${ENV.INFO_EMAIL}>`,
+      from: `"${Config.ORG_NAME} | 💁🏻‍♂️ Information" <${Config.INFO_EMAIL}>`,
       subject: 'Info | ' + options?.subject,
     });
   }
 
-  async security(options?: MailOptions & { code: string }) {
+  async security(options?: MailOptions) {
     return await this.send({
       ...options,
-      from: `"${ENV.ORG_NAME} | 🔐 Security" <${ENV.SECURITY_EMAIL}>`,
+      from: `"${Config.ORG_NAME} | 🔐 Security" <${Config.SECURITY_EMAIL}>`,
       subject: 'Security | ' + options?.subject,
     });
   }
 
-  async send({
-    from,
-    to,
-    subject,
-    text,
-    code,
-  }: MailOptions & { code?: string }) {
+  async send({ from, to, subject, text }: MailOptions) {
     return await this.transporter().sendMail({
       from,
       to,
       subject,
-      text: `${text}\n${code ? `[ ${code}]` : ''}`,
+      text,
     });
   }
 }

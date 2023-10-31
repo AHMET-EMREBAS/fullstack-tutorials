@@ -9,10 +9,10 @@ import {
 } from '@techbir/rest';
 
 import { EventEmitterModule } from '@nestjs/event-emitter';
-import { EventService } from './events.service';
+import { EventService } from './events/events.service';
 import { ScheduleModule } from '@nestjs/schedule';
-import { CronsService } from './crons.service';
-import { ServerSideEventsController } from './sse.controller';
+import { CronsService } from './crons';
+import { ServerSideEventsController } from './events';
 import { Repository } from 'typeorm';
 import {
   Category,
@@ -21,10 +21,9 @@ import {
   Role,
   User,
 } from '@techbir/database';
-import { seedAuth } from './seed/seed-auth';
-import { seedCategory } from './seed';
-import { EmailService } from './email.service';
-import { ENV } from './environment';
+import { seedAuth, seedCategory } from './seed';
+import { EmailEventsService, EmailService } from './email';
+import { Config } from './config';
 
 @Module({
   imports: [
@@ -47,7 +46,7 @@ import { ENV } from './environment';
     DepartmentModule,
   ],
   controllers: [ServerSideEventsController],
-  providers: [EventService, CronsService, EmailService],
+  providers: [EventService, CronsService, EmailService, EmailEventsService],
 })
 export class AppModule implements OnModuleInit {
   constructor(
@@ -67,7 +66,7 @@ export class AppModule implements OnModuleInit {
     await seedCategory(this.departmentRepo, this.categoryRepo);
 
     await this.emailService.info({
-      to: ENV.EMAIL_ADDRESS,
+      to: Config.EMAIL_ADDRESS,
       subject: 'Welcome',
       text: 'Thank you fo choosing us. For any assistance, use live chat or send us email throught question@aemrebas.com \n Have an amazing day!',
     });

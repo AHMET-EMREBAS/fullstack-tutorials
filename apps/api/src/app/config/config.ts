@@ -1,4 +1,4 @@
-export const ENV = {
+export const Config = {
   ORG_NAME: process.env.ORG_NAME,
   EMAIL_ADDRESS: process.env.EMAIL_ADDRESS,
   EMAIL_PASSWORD: process.env.EMAIL_PASSWORD,
